@@ -1,0 +1,1 @@
+# hs-craft-solver
