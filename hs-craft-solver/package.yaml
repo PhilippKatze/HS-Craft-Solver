@@ -27,6 +27,11 @@ dependencies:
 - bytestring
 - text
 - vector
+- tuple
+- foundation
+- ansi-terminal
+- split
+- async
 
 ghc-options:
 - -Wall

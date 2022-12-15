@@ -2,6 +2,12 @@
 
 module Ingredients
     ( Ingredient, 
+    identifications,
+    skills,
+    name,
+    level,
+    durability,
+    effectiveness,
     fetchIngredients, 
     hasEffectivness, 
     hasSkillPointReq,
@@ -18,13 +24,14 @@ import Data.List
 import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy as BL
 import System.Exit
+import System.Console.ANSI
 
 data Ingredient = Ingredient {
                     name::String,
                     tier::Int,
                     level::Int,
                     skills::[String],
-                    identifications::[(String, Int, Int)],
+                    identifications::[(String, (Int, Int))],
                     --items only
                     durability::Int,
                     requirements:: [(String, Int)],
@@ -32,7 +39,7 @@ data Ingredient = Ingredient {
                     charges::Int,
                     duration::Int,
                     -------------------------------
-                    effectiveness:: [(String, Int)]} deriving Show
+                    effectiveness:: [(String, Int)]} deriving (Show, Eq)
 
 newtype IngredientList = IngredientList [Ingredient] deriving Show
 
@@ -42,9 +49,7 @@ instance FromJSON Ingredient where
         name <- i .: "name"
         tier <- i .: "tier"
         level <- i .: "level"
-
         skills <- parseJSONList =<< i .: "skills"
-
         itemOnlyIDs <- i .: "itemOnlyIDs" 
         durability <- itemOnlyIDs .: "durabilityModifier"
 
@@ -56,7 +61,6 @@ instance FromJSON Ingredient where
         charges <- consumOnlyIDs .:? "charges" .!= 0
         duration <- consumOnlyIDs .:? "duration" .!= 0
 
-
         effect <- (i .: "ingredientPositionModifiers":: Parser (M.Map String Int))
         let effectivness = M.toList effect
 
@@ -64,7 +68,7 @@ instance FromJSON Ingredient where
         identifications <- mapM (\j -> do
             min <- snd j .: "minimum"
             max <- snd j .: "maximum"
-            return (fst j, min, max)) 
+            return (fst j, (min, max))) 
             $ M.toList ident
 
         return $ Ingredient name tier level skills identifications durability requirements charges duration effectivness
@@ -94,7 +98,6 @@ fetchIngredients = do
     star2 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/2"
     star3 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/3"
     let allstar = concat [star0,star1,star2,star3]
-    print allstar
     return allstar
 
 
@@ -107,7 +110,7 @@ fetchIngredientsUrl url = do
         Just (IngredientList x) -> return x
 
 hasEffectivness :: Ingredient -> Bool
-hasEffectivness i = True
+hasEffectivness = any ((>0) . snd) . effectiveness
 
 hasSkillPointReq :: Ingredient -> Bool
-hasSkillPointReq i = True
+hasSkillPointReq = any ((>0) . snd) . requirements
