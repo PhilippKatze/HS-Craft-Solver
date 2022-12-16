@@ -1,4 +1,4 @@
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns, DeriveGeneric, ParallelListComp  #-}
 module Solver
     ( solve,
     effects
@@ -6,15 +6,22 @@ module Solver
 
 import Ingredients
 import Control.Monad
-import Control.Concurrent
 import Data.List.Split
 import Data.List
 import Debug.Trace
 import Control.Concurrent.Async
 import Control.DeepSeq
+import Control.Exception
+import Control.DeepSeq.Generics (genericRnf)
+import GHC.Generics
+import Control.Concurrent.MVar.Strict
+import Control.Parallel.Strategies
+import qualified Data.Vector as V
 
 
-data RecipeResult = RecipeResult {itemnames::[String], stats::[(String,Int)], finalDurability::Int} deriving Show
+data RecipeResult = RecipeResult {itemnames::V.Vector String, stats::V.Vector (String,Int), finalDurability::Int} deriving (Show, Generic)
+instance NFData RecipeResult where rnf = genericRnf
+
 
 
 solve :: String -> [String] -> Int -> Int -> [Ingredient] -> IO ()
@@ -44,69 +51,81 @@ solve skill attributes mindurability lvl allIngredients = do
     -- Liste mit  5er Permutation mit jeweils allen anderen items kombiniert der liste der effectiveness items
     -- multi threaded
     -- mpi support ? 
-    skyline <- newMVar []
+    skyline <- newMVar V.empty
 
     -- First try dont differ between items just bruteforce all
-    let allIngrd = nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
-    let multiChunks = chunksOf 5 allIngrd --how many threads?
-    ids <- mapM  (async . solvePart skyline attributes mindurability allIngrd) multiChunks
-    mapM_ wait ids --required to trigger lazyness
-    --takeMVar handle
+    let allIngrd = V.fromList $ nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
+    let multiChunks = map V.fromList $ chunksOf (div (length allIngrd) 16) $ V.toList allIngrd --how many threads?
+    putStrLn $ "Threads started: " ++ show (length multiChunks)
+    mapConcurrently (solvePart skyline (V.fromList attributes) mindurability allIngrd) multiChunks
+    --let t = using (map (solvePart skyline attributes mindurability allIngrd) multiChunks) (parListChunk 3 rseq)
+    --mapM_ wait ids 
+
     print "wait done"
     listReceips <- readMVar skyline
     print listReceips
     return ()
 
-solvePart :: MVar [RecipeResult] -> [String] -> Int -> [Ingredient] -> [Ingredient] -> IO ()
+solvePart :: MVar (V.Vector RecipeResult) -> V.Vector String -> Int -> V.Vector Ingredient -> V.Vector Ingredient -> IO ()
 solvePart skyline attributes mindurability allIng partialIng = 
-        sequence_ [testForSkyline attributes skyline $ createReceipe attributes [p,a1,a2,a3,a4,a5] | p <- partialIng, a1 <- allIng, a2 <- allIng, a3 <- allIng, a4 <- allIng, a5 <- allIng]
+    V.forM_ partialIng 
+        (\p -> V.forM_ allIng 
+            (\a1 -> V.forM_ allIng 
+                (\a2 -> V.forM_ allIng 
+                    (\a3 -> V.forM_ allIng 
+                        (\a4 -> V.forM_ allIng 
+                            (\a5 -> testForSkyline attributes skyline $ createReceipe attributes (V.fromList[p,a1,a2,a3,a4,a5])))))))
 --TODO cleanup? xD
-createReceipe :: [String] -> [Ingredient] -> RecipeResult
+--first calc durability and discard, when too low
+createReceipe :: V.Vector String -> V.Vector Ingredient -> RecipeResult
 createReceipe attr ingr = RecipeResult 
-                (map name ingr) 
-                (map (\att -> (att, sum $ zipWith(\ ing ind -> (`div` 100) $ ((effList !! ind) + 100)* foundAttribute (find ((== att) . fst) $ identifications ing)) ingr [0, 1 .. ]))attr) 
-                (sum $ map durability ingr)
+                (V.map name ingr) 
+                (V.map (\att -> (att, sum $ V.zipWith(\ ing ind -> (`div` 100) $ ((effList V.! ind) + 100)* foundAttribute (V.find ((== att) . fst) $ identifications ing)) ingr (V.generate (length ingr) id)))attr) 
+                (sum $ V.map durability ingr)
     where
         effList = effectiveList ingr
         foundAttribute :: Maybe (String,(Int,Int)) -> Int
         foundAttribute (Just (_,(_,x))) = x
         foundAttribute Nothing = 0
 
-effectiveList :: [Ingredient] -> [Int]
-effectiveList = addLists . map (addLists . zipWith effects [0, 1 .. ]. effectiveness)
+effectiveList :: V.Vector Ingredient -> V.Vector Int
+effectiveList = addLists . V.map (\(pos, ingr) -> addLists $ V.map (effects pos) $ effectiveness ingr) . V.zip (V.replicate 6 0)
   where
-    addLists = foldl' (zipWith (+) $!!) [0,0,0,0,0,0]
+    --addLists = V.map sum . transpose
+    addLists = V.foldl (V.zipWith (+)) (V.replicate 6 0)
 
 --TODO MEMORIZE COULD BE EFFICIENT
-effects :: Int -> (String,Int) -> [Int]
-effects pos (_,0) = [0,0,0,0,0,0]
-effects pos ("above",perc) = map (\ind -> if (ind<pos) && even (ind-pos) then perc else 0 ) [0,1,2,3,4,5]
-effects pos ("under",perc) = map (\ind -> if (ind>pos) && even (ind-pos) then perc else 0 ) [0,1,2,3,4,5]
-effects pos ("right",perc) = map (\ind -> if even pos && odd ind then perc else 0 ) [0,1,2,3,4,5]
-effects pos ("left",perc) = map (\ind  -> if odd pos && even ind then perc else 0 ) [0,1,2,3,4,5]
-effects pos ("touching",perc) = map (\ind  -> 
+effects :: Int -> (String,Int) -> V.Vector Int
+effects pos (_,0) = V.replicate 6 0 
+effects pos ("above",perc) = V.map (\ind -> if (ind<pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
+effects pos ("under",perc) = V.map (\ind -> if (ind>pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
+effects pos ("right",perc) = V.map (\ind -> if even pos && odd ind then perc else 0 ) $ V.generate 6 id
+effects pos ("left",perc) = V.map (\ind  -> if odd pos && even ind then perc else 0 ) $ V.generate 6 id
+effects pos ("touching",perc) = V.map (\ind  -> 
     if (even pos && (ind-pos == -2 || ind-pos == 2 || ind-pos == 1)) 
         || (odd pos && (ind-pos == 2 || ind-pos == -2 || ind-pos == -1)) 
-        then perc else 0 ) [0,1,2,3,4,5]
-effects pos ("notTouching",perc) = map (\ind  -> 
+        then perc else 0 ) $ V.generate 6 id
+effects pos ("notTouching",perc) = V.map (\ind  -> 
     if (even pos && (ind-pos /= -2 && ind-pos /= 2 && ind-pos /= 1)) 
         || (odd pos && (ind-pos /= 2 && ind-pos /= -2 && ind-pos /= -1)) 
-        then perc else 0 ) [0,1,2,3,4,5]
+        then perc else 0 ) $ V.generate 6 id
 effects _ _ = error "error with reading the effectiveness"
 
 
-testForSkyline :: [String] -> MVar [RecipeResult] -> RecipeResult -> IO ()
+testForSkyline :: V.Vector String -> MVar (V.Vector RecipeResult) -> RecipeResult -> IO ()
 testForSkyline attributes skyline receipt = do
-    currentSkyline <- readMVar skyline
-    --print receipt
-    --print $ length currentSkyline
-    let !gotDominated = any ((True==) . dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
-    let !filteredskylinePoints = filter (\sky -> not $ dominating attributes sky receipt) currentSkyline
-    _ <- if gotDominated then swapMVar skyline filteredskylinePoints else swapMVar skyline (receipt:filteredskylinePoints)
+
+    --evaluate (force currentSkyline)
+    modifyMVar_ skyline (\currentSkyline -> do
+        let gotDominated = V.any ((True==) . dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
+        let filteredskylinePoints = V.filter (\sky -> not $ dominating attributes sky receipt) currentSkyline-- `using` evalList r0
+        unless gotDominated (print receipt) 
+        return $ if gotDominated then filteredskylinePoints else V.snoc filteredskylinePoints receipt)
+
     return ()
 
-dominating :: [String] -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominating = all (\att -> fi att dominating > fi att first) attributes
+dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
+dominating attributes first dominat = all (\att -> fi att dominat > fi att first) attributes
   where
     fi attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
     foundAttribute :: Maybe (String,Int) -> Int

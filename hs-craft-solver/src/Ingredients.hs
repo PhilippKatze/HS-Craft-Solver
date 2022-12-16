@@ -1,13 +1,7 @@
 {-# LANGUAGE OverloadedStrings, LambdaCase  #-}
 
 module Ingredients
-    ( Ingredient, 
-    identifications,
-    skills,
-    name,
-    level,
-    durability,
-    effectiveness,
+    ( Ingredient (..), 
     fetchIngredients, 
     hasEffectivness, 
     hasSkillPointReq,
@@ -19,6 +13,7 @@ import Data.Aeson
 import Data.Aeson.Types
 import Network.HTTP.Simple
 import qualified Data.Map as M
+import qualified Data.Vector as V
 import Data.Maybe
 import Data.List
 import qualified Data.Vector as V
@@ -30,16 +25,16 @@ data Ingredient = Ingredient {
                     name::String,
                     tier::Int,
                     level::Int,
-                    skills::[String],
-                    identifications::[(String, (Int, Int))],
+                    skills::V.Vector String,
+                    identifications::V.Vector (String, (Int, Int)),
                     --items only
                     durability::Int,
-                    requirements:: [(String, Int)],
+                    requirements:: V.Vector (String, Int),
                     --consumable only
                     charges::Int,
                     duration::Int,
                     -------------------------------
-                    effectiveness:: [(String, Int)]} deriving (Show, Eq)
+                    effectiveness:: V.Vector (String, Int)} deriving (Show, Eq)
 
 newtype IngredientList = IngredientList [Ingredient] deriving Show
 
@@ -71,7 +66,7 @@ instance FromJSON Ingredient where
             return (fst j, (min, max))) 
             $ M.toList ident
 
-        return $ Ingredient name tier level skills identifications durability requirements charges duration effectivness
+        return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration (V.fromList effectivness)
 
 instance FromJSON IngredientList where
     parseJSON = \case

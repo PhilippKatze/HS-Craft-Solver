@@ -9,6 +9,7 @@ import Text.Read
 import Data.Maybe
 import Solver
 import System.Console.ANSI
+import qualified Data.Vector as V
 
 startup :: IO ()
 startup = do 
@@ -25,7 +26,7 @@ startup = do
     printOption "please select the minimum durability" --200 
     durability <- validateInput $ isJust . (readMaybe :: (String -> Maybe Int))
 
-    let attributenames = nub $ concatMap (map (map toLower . fst) . identifications) allIngredients
+    let attributenames = V.uniq $ V.concatMap (V.map (map toLower . fst) . identifications) $ V.fromList allIngredients
     printOption "please select the wanted stats out of the following list" --xpbonus 
     putStrLn $ "Possible stats are:" ++ show attributenames
     stats <- validateInput $ all (`elem` attributenames) . words
