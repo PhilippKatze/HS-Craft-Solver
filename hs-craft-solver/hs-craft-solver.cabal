@@ -40,6 +40,7 @@ library
     , base >=4.7 && <5
     , bytestring
     , containers
+    , deepseq
     , foundation
     , http-conduit
     , split
@@ -62,6 +63,7 @@ executable hs-craft-solver-exe
     , base >=4.7 && <5
     , bytestring
     , containers
+    , deepseq
     , foundation
     , hs-craft-solver
     , http-conduit
@@ -86,6 +88,7 @@ test-suite hs-craft-solver-test
     , base >=4.7 && <5
     , bytestring
     , containers
+    , deepseq
     , foundation
     , hs-craft-solver
     , http-conduit

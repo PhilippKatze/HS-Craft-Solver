@@ -7,12 +7,11 @@ module Solver
 import Ingredients
 import Control.Monad
 import Control.Concurrent
-import Control.Concurrent.MVar
 import Data.List.Split
 import Data.List
-import Data.Maybe
 import Debug.Trace
 import Control.Concurrent.Async
+import Control.DeepSeq
 
 
 data RecipeResult = RecipeResult {itemnames::[String], stats::[(String,Int)], finalDurability::Int} deriving Show
@@ -49,8 +48,8 @@ solve skill attributes mindurability lvl allIngredients = do
 
     -- First try dont differ between items just bruteforce all
     let allIngrd = nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
-    let multiChunks = chunksOf 16 allIngrd --how many threads?
-    !ids <- (mapM  (\part -> async $ solvePart skyline attributes mindurability allIngrd part) multiChunks)
+    let multiChunks = chunksOf 5 allIngrd --how many threads?
+    ids <- mapM  (async . solvePart skyline attributes mindurability allIngrd) multiChunks
     mapM_ wait ids --required to trigger lazyness
     --takeMVar handle
     print "wait done"
@@ -59,39 +58,26 @@ solve skill attributes mindurability lvl allIngredients = do
     return ()
 
 solvePart :: MVar [RecipeResult] -> [String] -> Int -> [Ingredient] -> [Ingredient] -> IO ()
-solvePart skyline attributes mindurability allIng partialIng = do
-    forM_ partialIng 
-        (\p -> forM_ allIng 
-            (\a1 -> forM_ allIng 
-                (\a2 -> forM_ allIng 
-                    (\a3 -> forM_ allIng 
-                        (\a4 -> forM_ allIng 
-                            (\a5 -> testForSkyline attributes skyline $ createReceipe attributes [p,a1,a2,a3,a4,a5]))))))
-    --tes <- mapM (testForSkyline attributes skyline) allReceipResults 
-    --print allReceipResults
-
+solvePart skyline attributes mindurability allIng partialIng = 
+        sequence_ [testForSkyline attributes skyline $ createReceipe attributes [p,a1,a2,a3,a4,a5] | p <- partialIng, a1 <- allIng, a2 <- allIng, a3 <- allIng, a4 <- allIng, a5 <- allIng]
 --TODO cleanup? xD
 createReceipe :: [String] -> [Ingredient] -> RecipeResult
-createReceipe attr ingr = RecipeResult (map name ingr) 
-                                  (map (\att ->
-                                     (att, 
-                                     sum $ map (\(ing, ind)-> (`div` 100) $ ((effList!!ind) + 100) * (foundAttribute $ find ((== att) . fst) $ identifications ing)) $ zip ingr [0,1..]) 
-                                  )attr)
-                                  (sum $ map durability ingr)
+createReceipe attr ingr = RecipeResult 
+                (map name ingr) 
+                (map (\att -> (att, sum $ zipWith(\ ing ind -> (`div` 100) $ ((effList !! ind) + 100)* foundAttribute (find ((== att) . fst) $ identifications ing)) ingr [0, 1 .. ]))attr) 
+                (sum $ map durability ingr)
     where
         effList = effectiveList ingr
         foundAttribute :: Maybe (String,(Int,Int)) -> Int
         foundAttribute (Just (_,(_,x))) = x
         foundAttribute Nothing = 0
 
-
-
 effectiveList :: [Ingredient] -> [Int]
-effectiveList = addLists . map (addLists . map (\(ind, effType) -> effects ind effType) . zip [0,1..] . effectiveness)
+effectiveList = addLists . map (addLists . zipWith effects [0, 1 .. ]. effectiveness)
   where
-    addLists = foldl (zipWith (+)) [0,0,0,0,0,0]
+    addLists = foldl' (zipWith (+) $!!) [0,0,0,0,0,0]
 
---TODO MEMORIZE WOULD BE EFFICIENT
+--TODO MEMORIZE COULD BE EFFICIENT
 effects :: Int -> (String,Int) -> [Int]
 effects pos (_,0) = [0,0,0,0,0,0]
 effects pos ("above",perc) = map (\ind -> if (ind<pos) && even (ind-pos) then perc else 0 ) [0,1,2,3,4,5]
@@ -113,13 +99,14 @@ testForSkyline :: [String] -> MVar [RecipeResult] -> RecipeResult -> IO ()
 testForSkyline attributes skyline receipt = do
     currentSkyline <- readMVar skyline
     --print receipt
-    let gotDominated = any ((True==) . dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
-    let filteredskylinePoints = filter (\sky -> not $ dominating attributes sky receipt) currentSkyline
-    !_ <- if gotDominated then swapMVar skyline filteredskylinePoints else swapMVar skyline (receipt:filteredskylinePoints)
+    --print $ length currentSkyline
+    let !gotDominated = any ((True==) . dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
+    let !filteredskylinePoints = filter (\sky -> not $ dominating attributes sky receipt) currentSkyline
+    _ <- if gotDominated then swapMVar skyline filteredskylinePoints else swapMVar skyline (receipt:filteredskylinePoints)
     return ()
 
 dominating :: [String] -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominating = and $ map (\att -> (fi att dominating) > (fi att first)) attributes
+dominating attributes first dominating = all (\att -> fi att dominating > fi att first) attributes
   where
     fi attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
     foundAttribute :: Maybe (String,Int) -> Int
