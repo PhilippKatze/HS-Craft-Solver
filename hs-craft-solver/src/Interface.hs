@@ -15,6 +15,7 @@ startup :: IO ()
 startup = do 
 
     allIngredients <- fetchIngredients
+    allReceips <- fetchReceipts
 
     putStrLn "-------------Haskell Craft Solver-------------"
     printOption "please select the piece you want to optimate" --Helmet
@@ -26,9 +27,13 @@ startup = do
     printOption "please select the minimum durability" --200 
     durability <- validateInput $ isJust . (readMaybe :: (String -> Maybe Int))
 
-    let attributenames = V.uniq $ V.concatMap (V.map (map toLower . fst) . identifications) $ V.fromList allIngredients
+    let attributenames = nub $  V.toList $ V.concatMap (V.map (map toLower . fst) . identifications) $ V.fromList allIngredients
+    --let skillss = nub $  V.toList $ V.concatMap skills $ V.fromList allIngredients --debug
+
     printOption "please select the wanted stats out of the following list" --xpbonus 
     putStrLn $ "Possible stats are:" ++ show attributenames
+    --putStrLn $ "All Skills:" ++ show skillss
+    print allReceips
     stats <- validateInput $ all (`elem` attributenames) . words
 
     solve piece (words $ map toUpper stats) (read durability) (read level) allIngredients

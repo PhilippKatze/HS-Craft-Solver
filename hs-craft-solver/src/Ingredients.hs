@@ -5,7 +5,8 @@ module Ingredients
     fetchIngredients, 
     hasEffectivness, 
     hasSkillPointReq,
-    getURLJSON
+    getURLJSON,
+    fetchReceipts
     ) where
 
 import qualified Data.Text as T
@@ -18,8 +19,11 @@ import Data.Maybe
 import Data.List
 import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy as BL
+import qualified Data.ByteString.Lazy.UTF8 as BLU
+import qualified Data.ByteString as B
 import System.Exit
 import System.Console.ANSI
+import System.Cached.JSON
 
 data Ingredient = Ingredient {
                     name::String,
@@ -36,7 +40,17 @@ data Ingredient = Ingredient {
                     -------------------------------
                     effectiveness:: V.Vector (String, Int)} deriving (Show, Eq)
 
+data Receipe = Receipe {
+                    typ::String,
+                    skil::String,
+                    levels::(Int, Int),
+                    materials::V.Vector (String,Int),
+                    healthOrDamage::(Int,Int),
+                    dura::(Int,Int)} deriving (Show, Eq)
+
+
 newtype IngredientList = IngredientList [Ingredient] deriving Show
+newtype ReceipeList = ReceipeList [Receipe] deriving Show
 
 
 instance FromJSON Ingredient where
@@ -68,10 +82,41 @@ instance FromJSON Ingredient where
 
         return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration (V.fromList effectivness)
 
+instance FromJSON Receipe where
+    parseJSON = withObject "Receipe" $ \i -> do
+        type' <- i .: "type"
+        skil' <- i .: "skill"
+        levelSection <- i .: "level" 
+        minLevel <- levelSection .: "minimum" 
+        maxLevel <- levelSection .: "maximum" 
+        hodSection <- i .: "healthOrDamage" 
+        minhod <- hodSection .: "minimum" 
+        maxhod <- hodSection .: "maximum" 
+        duraSection <- i .: "durability" 
+        mindura <- duraSection .: "minimum" 
+        maxdura <- duraSection .: "maximum" 
+        mats <- (i .:? "materials":: Parser (Maybe (M.Map String Object)))
+        matList <- mapM (\j -> do
+            min <- (snd j .:? "item" .!= "" :: Parser String)
+            max <- (snd j .:? "amount" .!= 0 :: Parser Int)
+            return (min, max)) 
+            $ M.toList $ fromJust mats
+        --return $ Receipe type' skil' (minLevel,maxLevel) (V.fromList matList) (minhod,maxhod) (mindura,maxdura)
+        --return $ Receipe type' skil' (minLevel,maxLevel) (V.empty) (minhod,maxhod) (mindura,maxdura)
+        return $ Receipe type' skil' (minLevel,maxLevel) (V.empty) (0,0) (0,0)
+
+
+
+
 instance FromJSON IngredientList where
     parseJSON = \case
         Object o -> (o .: "data") >>= fmap IngredientList . parseJSON
         x -> fail $ "could not parse Ingredient List " ++ show x
+
+instance FromJSON ReceipeList where
+    parseJSON = \case
+        Object o -> (o .: "data") >>= fmap ReceipeList . parseJSON
+        x -> fail $ "could not parse Receipe List " ++ show x
 
 --https://api.wynncraft.com/v2/ingredient/search/identifications/&xpbonus%3C;%3E
 
@@ -88,18 +133,34 @@ getURLJSON url = do
 
 fetchIngredients :: IO [Ingredient]
 fetchIngredients = do
-    star0 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/0"
-    star1 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/1"
-    star2 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/2"
-    star3 <- fetchIngredientsUrl "https://api.wynncraft.com/v2/ingredient/search/tier/3"
+    star0 <- fetchIngredientsUrl "ingr-t0" "https://api.wynncraft.com/v2/ingredient/search/tier/0"
+    star1 <- fetchIngredientsUrl "ingr-t1" "https://api.wynncraft.com/v2/ingredient/search/tier/1"
+    star2 <- fetchIngredientsUrl "ingr-t2" "https://api.wynncraft.com/v2/ingredient/search/tier/2"
+    star3 <- fetchIngredientsUrl "ingr-t3" "https://api.wynncraft.com/v2/ingredient/search/tier/3"
     let allstar = concat [star0,star1,star2,star3]
     return allstar
 
+fetchReceipts :: IO [Receipe]
+fetchReceipts = do
+    concat <$> mapM (\skil -> fetchReceiptUrl ("receipt-"++skil) ("https://api.wynncraft.com/v2/recipe/search/skill/"++skil)) ["TAILORING","ALCHEMISM","COOKING","SCRIBING","WEAPONSMITHING","ARMOURING","WOODWORKING","JEWELING"]
+  
+fetchReceiptUrl :: String -> String -> IO [Receipe]
+fetchReceiptUrl name url = do
+    jsonCached <- (getCachedJSON "craft-solver-cache" (name++".json") url (60*24*7) :: IO (Maybe Object))
+    let jsonstr = fromJust jsonCached
+    print jsonstr
+    let ingrList = (decode $ encode jsonstr) :: Maybe ReceipeList
+    print ingrList
+    case ingrList of
+        Nothing -> putStrLn "Parsing the Wynn API failed" >> die "Parsing Error" 
+        Just (ReceipeList x) -> return x
 
-fetchIngredientsUrl :: String -> IO [Ingredient]
-fetchIngredientsUrl url = do
-    json <- getURLJSON url
-    let ingrList =  (decode json :: Maybe IngredientList)
+
+fetchIngredientsUrl :: String -> String -> IO [Ingredient]
+fetchIngredientsUrl name url = do
+    jsonCached <- (getCachedJSON "craft-solver-cache" (name++".json") url (60*24*7) :: IO (Maybe Object))
+    let jsonstr = fromJust jsonCached
+    let ingrList =  (decode $ encode jsonstr) :: Maybe IngredientList
     case ingrList of
         Nothing -> putStrLn "Parsing the Wynn API failed" >> die "Parsing Error" 
         Just (IngredientList x) -> return x

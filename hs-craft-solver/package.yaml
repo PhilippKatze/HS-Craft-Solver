@@ -36,6 +36,8 @@ dependencies:
 - deepseq-generics
 - strict-concurrency
 - parallel
+- cached-json-file
+- utf8-string
 
 ghc-options:
 - -Wall
