@@ -79,8 +79,8 @@ solve skill attributes mindurability lvl allIngredients = do
 solvePart :: MVar (V.Vector RecipeResult) -> V.Vector String -> Int -> V.Vector Ingredient -> V.Vector Ingredient -> IO (IORef [RecipeResult])
 solvePart skyline attributes mindurability allIng partialIng = do
     localSkyline <- run $ newIORef [] -- excuse me, change it later
-    V.forM_ partialIng 
-            (\p -> V.forM_ allIng 
+    V.forM_ (V.zip partialIng $ V.fromList [1..])
+            (\(p,ind) -> print (div (length partialIng) ind) >> V.forM_ allIng 
                 (\a1 -> V.forM_ allIng 
                     (\a2 -> V.forM_ allIng 
                         (\a3 -> V.forM_ allIng 
@@ -108,7 +108,7 @@ createReceipe mindurability attr ingr
 -- print $ foldl (zipWith (+)) [0,0,0,0,0,0] $ concatMap (\(ing,pos) -> map (V.toList . effects pos) (V.toList $ effectiveness ing)) $ zip test2 [0..]
 effectiveList :: V.Vector Ingredient -> V.Vector Int
 effectiveList ingrednients
-  | someEffective ingrednients = V.fromList $ addLists $ traceShowId $ concatMap (\(ing,pos) -> map (V.toList . effects pos) (V.toList $ effectiveness ing)) filteredEffectivnessList
+  | someEffective ingrednients = V.fromList $ addLists $ concatMap (\(ing,pos) -> map (V.toList . effects pos) (V.toList $ effectiveness ing)) filteredEffectivnessList
   | otherwise = V.replicate 6 0
   where
     filteredEffectivnessList = filter (isEffectniss . fst) $ zip (V.toList ingrednients) [0..] 
@@ -140,7 +140,7 @@ testForSkyline attributes skyline (Just receipt) = do
     let gotDominated = any ((True==) . dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
     let filteredskylinePoints = if not gotDominated then filter (\sky -> not $ dominating attributes sky receipt) currentSkyline else currentSkyline
     let newSkyline = if gotDominated then filteredskylinePoints else receipt:filteredskylinePoints 
-    --unless gotDominated (print receipt) 
+    unless gotDominated (print receipt) 
     --unless gotDominated (print newSkyline) 
     run $ writeIORef skyline newSkyline
     return ()
