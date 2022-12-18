@@ -48,6 +48,7 @@ library
     , parallel
     , split
     , strict-concurrency
+    , strict-io
     , text
     , tuple
     , utf8-string
@@ -77,6 +78,7 @@ executable hs-craft-solver-exe
     , parallel
     , split
     , strict-concurrency
+    , strict-io
     , text
     , tuple
     , utf8-string
@@ -107,6 +109,7 @@ test-suite hs-craft-solver-test
     , parallel
     , split
     , strict-concurrency
+    , strict-io
     , text
     , tuple
     , utf8-string

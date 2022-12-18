@@ -2,6 +2,7 @@
 
 module Ingredients
     ( Ingredient (..), 
+    Receipe (..),
     fetchIngredients, 
     hasEffectivness, 
     hasSkillPointReq,
@@ -38,6 +39,7 @@ data Ingredient = Ingredient {
                     charges::Int,
                     duration::Int,
                     -------------------------------
+                    isEffectniss::Bool,
                     effectiveness:: V.Vector (String, Int)} deriving (Show, Eq)
 
 data Receipe = Receipe {
@@ -80,32 +82,34 @@ instance FromJSON Ingredient where
             return (fst j, (min, max))) 
             $ M.toList ident
 
-        return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration (V.fromList effectivness)
+        let isEffect = not $ all ((== 0). snd) effectivness
+
+        return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration isEffect (V.fromList effectivness)
 
 instance FromJSON Receipe where
     parseJSON = withObject "Receipe" $ \i -> do
         type' <- i .: "type"
         skil' <- i .: "skill"
+        _ <- i .: "id"::Parser String
         levelSection <- i .: "level" 
         minLevel <- levelSection .: "minimum" 
         maxLevel <- levelSection .: "maximum" 
         hodSection <- i .: "healthOrDamage" 
         minhod <- hodSection .: "minimum" 
         maxhod <- hodSection .: "maximum" 
-        duraSection <- i .: "durability" 
-        mindura <- duraSection .: "minimum" 
-        maxdura <- duraSection .: "maximum" 
-        mats <- (i .:? "materials":: Parser (Maybe (M.Map String Object)))
+        duraSection <- i .:? "durability" .!= i
+        mindura <- duraSection .:? "minimum" .!= 0
+        maxdura <- duraSection .:? "maximum" .!= 0
+        duratSection <- i .:? "duration" .!= i
+        mindurat <- duratSection .:? "minimum" .!= 0
+        maxdurat <- duratSection .:? "maximum" .!= 0
+        mats <- (parseJSONList =<< i .: "materials":: Parser [Object])
         matList <- mapM (\j -> do
-            min <- (snd j .:? "item" .!= "" :: Parser String)
-            max <- (snd j .:? "amount" .!= 0 :: Parser Int)
+            min <- (j .:? "item" .!= "" :: Parser String)
+            max <- (j .:? "amount" .!= 0 :: Parser Int)
             return (min, max)) 
-            $ M.toList $ fromJust mats
-        --return $ Receipe type' skil' (minLevel,maxLevel) (V.fromList matList) (minhod,maxhod) (mindura,maxdura)
-        --return $ Receipe type' skil' (minLevel,maxLevel) (V.empty) (minhod,maxhod) (mindura,maxdura)
-        return $ Receipe type' skil' (minLevel,maxLevel) (V.empty) (0,0) (0,0)
-
-
+            mats
+        return $ Receipe type' skil' (minLevel,maxLevel) (V.fromList matList) (minhod,maxhod) (mindura + mindurat,maxdura + maxdurat)
 
 
 instance FromJSON IngredientList where
@@ -117,12 +121,6 @@ instance FromJSON ReceipeList where
     parseJSON = \case
         Object o -> (o .: "data") >>= fmap ReceipeList . parseJSON
         x -> fail $ "could not parse Receipe List " ++ show x
-
---https://api.wynncraft.com/v2/ingredient/search/identifications/&xpbonus%3C;%3E
-
---https://api.wynncraft.com/v2/ingredient/search/tier/{level} --way to go?
-
---https://api.wynncraft.com/v2/recipe/list
 
 getURLJSON :: String -> IO BL.ByteString
 getURLJSON url = do
@@ -148,9 +146,7 @@ fetchReceiptUrl :: String -> String -> IO [Receipe]
 fetchReceiptUrl name url = do
     jsonCached <- (getCachedJSON "craft-solver-cache" (name++".json") url (60*24*7) :: IO (Maybe Object))
     let jsonstr = fromJust jsonCached
-    print jsonstr
     let ingrList = (decode $ encode jsonstr) :: Maybe ReceipeList
-    print ingrList
     case ingrList of
         Nothing -> putStrLn "Parsing the Wynn API failed" >> die "Parsing Error" 
         Just (ReceipeList x) -> return x

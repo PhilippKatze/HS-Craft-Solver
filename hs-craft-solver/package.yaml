@@ -38,6 +38,7 @@ dependencies:
 - parallel
 - cached-json-file
 - utf8-string
+- strict-io
 
 ghc-options:
 - -Wall
