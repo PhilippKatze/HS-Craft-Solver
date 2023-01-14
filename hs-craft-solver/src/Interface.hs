@@ -3,13 +3,17 @@ module Interface
     ) where
 
 import Ingredients
-import Data.List
-import Data.Char
-import Text.Read
-import Data.Maybe
-import Solver
-import Data.Ix
-import System.Console.ANSI
+    ( Receipe(dura, skil, typ, levels),
+      Ingredient(identifications),
+      fetchIngredients,
+      fetchReceipts )
+import Data.List ( find, nub )
+import Data.Char ( toLower, toUpper )
+import Text.Read ( readMaybe )
+import Data.Maybe ( fromJust, isJust )
+import Solver ( solve )
+import Data.Ix ( Ix(inRange, range) )
+import System.Console.ANSI ( clearScreen )
 import qualified Data.Vector as V
 
 startup :: IO ()
@@ -21,7 +25,7 @@ startup = do
 
     putStrLn "-------------Haskell Craft Solver-------------"
     printOption "please select the piece you want to optimate" --ARMOURING
-    putStrLn $ "Type your number for the choosen Profession: " ++ concatMap (\(number, prof) -> "[" ++show number ++"]" ++ show prof ++ ";  " ) allSkills
+    putStrLn $ "Type your number for the choosen Profession: " ++ concatMap (\(number, prof) -> "[" ++ show number ++"]" ++ show prof ++ ";  " ) allSkills
     choosenNumber <- validateInput (`elem` map (show.fst) allSkills)
     let skilt = snd $ fromJust $ find ((== choosenNumber). show .fst) allSkills
 
@@ -30,7 +34,7 @@ startup = do
     let possibleTypes =  zip [0..] $ nub $ map typ receipesFromSkill
 
     printOption "please select the Type of the crafted piece" --BOOTS
-    putStrLn $ "Type your number for the choosen Type: " ++ concatMap (\(number, typp) -> "[" ++show number ++"]" ++ show typp ++ ";  " ) possibleTypes
+    putStrLn $ "Type your number for the choosen Type: " ++ concatMap (\(number, typp) -> "[" ++ show number ++"]" ++ show typp ++ ";  " ) possibleTypes
     typNumber <- validateInput (`elem` map (show.fst) possibleTypes)
     let typString = snd $ fromJust $ find ((== typNumber). show .fst) possibleTypes
 
@@ -43,7 +47,7 @@ startup = do
 
     printOption "please select the minimum durability" --200 
     durabilityChoosen <- validateInput $ isJust . (readMaybe :: (String -> Maybe Int))
-    let durability = floor $ (1.4 *  fromIntegral ( snd (dura choosenReceips)) ) - read durabilityChoosen 
+    let durability = floor $ (1.4 *  fromIntegral ( snd (dura choosenReceips)) ) - (read durabilityChoosen :: Double)
 
     let attributenames = nub $  V.toList $ V.concatMap (V.map (map toLower . fst) . identifications) $ V.fromList allIngredients
 

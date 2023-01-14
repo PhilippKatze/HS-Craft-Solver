@@ -4,26 +4,19 @@ module Ingredients
     ( Ingredient (..), 
     Receipe (..),
     fetchIngredients, 
-    hasEffectivness, 
     hasSkillPointReq,
     getURLJSON,
     fetchReceipts
     ) where
 
-import qualified Data.Text as T
 import Data.Aeson
 import Data.Aeson.Types
 import Network.HTTP.Simple
 import qualified Data.Map as M
-import qualified Data.Vector as V
 import Data.Maybe
-import Data.List
 import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy as BL
-import qualified Data.ByteString.Lazy.UTF8 as BLU
-import qualified Data.ByteString as B
-import System.Exit
-import System.Console.ANSI
+import System.Exit ( die )
 import System.Cached.JSON
 
 data Ingredient = Ingredient {
@@ -40,7 +33,7 @@ data Ingredient = Ingredient {
                     duration::Int,
                     -------------------------------
                     isEffectniss::Bool,
-                    effectiveness:: V.Vector (String, Int)} deriving (Show, Eq)
+                    effectiveness:: V.Vector (V.Vector Int)} deriving (Show, Eq)
 
 data Receipe = Receipe {
                     typ::String,
@@ -73,7 +66,7 @@ instance FromJSON Ingredient where
         duration <- consumOnlyIDs .:? "duration" .!= 0
 
         effect <- (i .: "ingredientPositionModifiers":: Parser (M.Map String Int))
-        let effectivness = M.toList effect
+        let effectivness = V.fromList $ M.toList effect
 
         ident <- (i .: "identifications":: Parser (M.Map String Object))
         identifications <- mapM (\j -> do
@@ -83,8 +76,10 @@ instance FromJSON Ingredient where
             $ M.toList ident
 
         let isEffect = not $ all ((== 0). snd) effectivness
+        --effects :: Int -> (String,Int) -> V.Vector Int
+        let allEffectivenesses = V.map (\pos -> V.foldl (\input value-> V.zipWith (+) (effects pos value) input) (V.replicate 6 0) effectivness) $ V.generate 6 id
 
-        return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration isEffect (V.fromList effectivness)
+        return $ Ingredient name tier level (V.fromList skills) (V.fromList identifications) durability (V.fromList requirements) charges duration isEffect allEffectivenesses
 
 instance FromJSON Receipe where
     parseJSON = withObject "Receipe" $ \i -> do
@@ -161,8 +156,21 @@ fetchIngredientsUrl name url = do
         Nothing -> putStrLn "Parsing the Wynn API failed" >> die "Parsing Error" 
         Just (IngredientList x) -> return x
 
-hasEffectivness :: Ingredient -> Bool
-hasEffectivness = any ((>0) . snd) . effectiveness
-
 hasSkillPointReq :: Ingredient -> Bool
 hasSkillPointReq = any ((>0) . snd) . requirements
+
+effects :: Int -> (String,Int) -> V.Vector Int
+effects _ (_,0) = V.replicate 6 0 
+effects pos ("above",perc) = V.map (\ind -> if (ind<pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
+effects pos ("under",perc) = V.map (\ind -> if (ind>pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
+effects pos ("right",perc) = V.map (\ind -> if even pos && ind == pos+1 then perc else 0 ) $ V.generate 6 id
+effects pos ("left",perc) = V.map (\ind  -> if odd pos && ind == pos-1 then perc else 0 ) $ V.generate 6 id
+effects pos ("touching",perc) = V.map (\ind  -> 
+    if (even pos && (ind-pos == -2 || ind-pos == 2 || ind-pos == 1)) 
+        || (odd pos && (ind-pos == 2 || ind-pos == -2 || ind-pos == -1)) 
+        then perc else 0 ) $ V.generate 6 id
+effects pos ("notTouching",perc) = V.map (\ind  -> 
+    if ind /= pos && (even pos && (ind-pos /= -2 && ind-pos /= 2 && ind-pos /= 1)) 
+        || (odd pos && (ind-pos /= 2 && ind-pos /= -2 && ind-pos /= -1)) 
+        then perc else 0 ) $ V.generate 6 id
+effects _ _ = error "error with reading the effectiveness"

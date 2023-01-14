@@ -1,12 +1,10 @@
 {-# LANGUAGE DeriveGeneric  #-}
 module Solver
-    ( solve,
-    effects
+    ( solve
     ) where
 
 import Ingredients
     ( Ingredient(effectiveness, skills, level, durability, name, identifications, isEffectniss),
-      hasEffectivness,
       hasSkillPointReq )
 import Control.Monad ( unless, foldM, when )
 import Data.List.Split ( chunksOf )
@@ -32,7 +30,7 @@ solve skill attributes mindurability lvl allIngredients = do
     let allSkillIngredientsInLevelRange = filter ((<=lvl) . level) allSkillIngredients
         
     let durabilityIngredients = filter ((>0) .durability) allSkillIngredientsInLevelRange
-    let effectivenessIngredients = filter hasEffectivness allSkillIngredientsInLevelRange
+    let effectivenessIngredients = filter isEffectniss allSkillIngredientsInLevelRange
     let skillReqIngredients = filter hasSkillPointReq allSkillIngredientsInLevelRange
     let statIngredients = filter (any ((`elem` attributes) . fst) . identifications) allSkillIngredientsInLevelRange --TODO filter effectiveness items
 
@@ -61,7 +59,7 @@ solve skill attributes mindurability lvl allIngredients = do
     
     -- mpi support ? 
     let allIngrd = nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
-    let multiChunks = chunksOf (div (length allIngrd) 1) allIngrd --how many threads?
+    let multiChunks = chunksOf (div (length allIngrd) 16) allIngrd --how many threads?
     putStrLn $ "Threads started: " ++ show (length multiChunks)
     results <- mapConcurrently (solvePart attributes mindurability allIngrd) multiChunks
 
@@ -97,33 +95,16 @@ createReceipe mindurability attr ingr
 
 effectiveList :: V.Vector Ingredient -> V.Vector Int
 effectiveList ingrednients
-  | someEffective ingrednients = V.fromList $ addLists $ concatMap (\(ing,pos) -> map (V.toList . effects pos) (V.toList $ effectiveness ing)) filteredEffectivnessList
+  | someEffective ingrednients = addLists $ V.map (\(ing,pos) -> (V.! pos) $ effectiveness ing) filteredEffectivnessList
   | otherwise = V.replicate 6 0
   where
-    filteredEffectivnessList = filter (isEffectniss . fst) $ zip (V.toList ingrednients) [0..] 
+    filteredEffectivnessList = V.filter (isEffectniss . fst) $ V.zip ingrednients $ V.generate (length ingrednients) id 
     someEffective = V.or . V.map isEffectniss
-    addLists = foldl (zipWith (+)) [0,0,0,0,0,0]
-
---TODO MEMORIZE COULD BE EFFICIENT
-effects :: Int -> (String,Int) -> V.Vector Int
-effects _ (_,0) = V.replicate 6 0 
-effects pos ("above",perc) = V.map (\ind -> if (ind<pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
-effects pos ("under",perc) = V.map (\ind -> if (ind>pos) && even (ind-pos) then perc else 0 ) $ V.generate 6 id
-effects pos ("right",perc) = V.map (\ind -> if even pos && ind == pos+1 then perc else 0 ) $ V.generate 6 id
-effects pos ("left",perc) = V.map (\ind  -> if odd pos && ind == pos-1 then perc else 0 ) $ V.generate 6 id
-effects pos ("touching",perc) = V.map (\ind  -> 
-    if (even pos && (ind-pos == -2 || ind-pos == 2 || ind-pos == 1)) 
-        || (odd pos && (ind-pos == 2 || ind-pos == -2 || ind-pos == -1)) 
-        then perc else 0 ) $ V.generate 6 id
-effects pos ("notTouching",perc) = V.map (\ind  -> 
-    if ind /= pos && (even pos && (ind-pos /= -2 && ind-pos /= 2 && ind-pos /= 1)) 
-        || (odd pos && (ind-pos /= 2 && ind-pos /= -2 && ind-pos /= -1)) 
-        then perc else 0 ) $ V.generate 6 id
-effects _ _ = error "error with reading the effectiveness"
+    addLists = V.foldl (V.zipWith (+)) (V.replicate 6 0)
 
 
 testForSkyline :: V.Vector String -> [RecipeResult] -> Maybe RecipeResult -> IO [RecipeResult]
-testForSkyline _ _  Nothing = return []
+testForSkyline _ currentSkyline  Nothing = return currentSkyline
 testForSkyline attributes currentSkyline (Just receipt) = do
     let gotDominated = any (dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
     let filteredskylinePoints = if not gotDominated then filter (\sky -> not $ dominating attributes sky receipt) currentSkyline else currentSkyline
@@ -138,7 +119,6 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     unless gotDominated (print receipt) 
     unless gotDominated (print currentSkyline)
     unless gotDominated (print newSkyline)
-
 
     return newSkyline
 
