@@ -11,8 +11,8 @@ import Data.List.Split ( chunksOf )
 import Data.List ( find, nub )
 import Debug.Trace ()
 import Control.Concurrent.Async ( mapConcurrently )
-import Control.DeepSeq ( NFData(..) )
-import Control.Exception ()
+import Control.DeepSeq ( NFData(..), force )
+import Control.Exception (evaluate)
 import Control.DeepSeq.Generics (genericRnf)
 import GHC.Generics ( Generic )
 import Control.Parallel ()
@@ -63,8 +63,12 @@ solve skill attributes mindurability lvl allIngredients = do
     putStrLn $ "Threads started: " ++ show (length multiChunks)
     results <- mapConcurrently (solvePart attributes mindurability allIngrd) multiChunks
 
-    print "wait done"
+    finalSkyline <- foldM (testForSkyline (V.fromList attributes)) [] $ map return $ concat results
+
+    print "Threadresults"
     print results
+    print "final skyline"
+    print finalSkyline
     return ()
 
 solvePart :: [String] -> Int -> [Ingredient] -> [Ingredient] -> IO [RecipeResult]
@@ -109,17 +113,17 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     let gotDominated = any (dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
     let filteredskylinePoints = if not gotDominated then filter (\sky -> not $ dominating attributes sky receipt) currentSkyline else currentSkyline
     let noncompareable = incompareable attributes receipt filteredskylinePoints
-    let newSkyline = if noncompareable then receipt:filteredskylinePoints else filteredskylinePoints 
-    when noncompareable (putStrLn "not comparable")
-    when noncompareable (print receipt) 
-    when noncompareable (print currentSkyline) 
-    when noncompareable (print newSkyline)
+    let newSkyline = if noncompareable && not gotDominated then receipt:filteredskylinePoints else filteredskylinePoints 
+    --when noncompareable (putStrLn "not comparable")
+    --when noncompareable (print receipt) 
+    --when noncompareable (print currentSkyline) 
+    --when noncompareable (print newSkyline)
 
-    unless gotDominated (putStrLn "not gotDominated")
-    unless gotDominated (print receipt) 
-    unless gotDominated (print currentSkyline)
-    unless gotDominated (print newSkyline)
-
+    --unless gotDominated (putStrLn "not gotDominated")
+    --unless gotDominated (print receipt) 
+    --unless gotDominated (print currentSkyline)
+    --unless gotDominated (print newSkyline)
+    _ <- evaluate (force newSkyline)
     return newSkyline
 
 dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
@@ -132,7 +136,7 @@ dominating attributes first dominat = all (\att -> fi att dominat >= fi att firs
 
 incompareable :: V.Vector String -> RecipeResult -> [RecipeResult] -> Bool
 incompareable _ _ [] = True
-incompareable attributes receip othereceips = any (\att -> all (\recei -> fi att receip > fi att recei) othereceips) attributes
+incompareable attributes receip othereceips = any (\att -> any (\recei -> fi att receip > fi att recei) othereceips) attributes
   where
     fi attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
     foundAttribute :: Maybe (String,Int) -> Int

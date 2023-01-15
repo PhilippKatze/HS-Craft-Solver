@@ -336,343 +336,347 @@
 <text text-anchor="" x="1090.00" y="24" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="search" onmouseover="searchover()" onmouseout="searchout()" onclick="search_prompt()" style="opacity:0.1;cursor:pointer" >Search</text>
 <text text-anchor="" x="1090.00" y="517" font-size="12" font-family="Verdana" fill="rgb(0,0,0)" id="matched" > </text>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (863 samples, 86.30%)</title><rect x="159.9" y="229" width="1018.3" height="15.0" fill="rgb(251,130,4)" rx="2" ry="2" />
-<text text-anchor="" x="162.86" y="239.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vector.Fusion.Util.&gt;&gt;=</text>
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (2 samples, 0.20%)</title><rect x="187.0" y="117" width="2.4" height="15.0" fill="rgb(248,40,2)" rx="2" ry="2" />
+<text text-anchor="" x="190.00" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.DeepSeq.Generics.grnf_ (2 samples, 0.20%)</title><rect x="146.9" y="117" width="2.3" height="15.0" fill="rgb(205,176,19)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+<title>Solver.rnf (2 samples, 0.20%)</title><rect x="184.6" y="149" width="2.4" height="15.0" fill="rgb(242,213,2)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.catchAll (120 samples, 12.00%)</title><rect x="10.0" y="309" width="141.6" height="15.0" fill="rgb(252,197,12)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="319.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
+<title>Control.Concurrent.Async.&lt;*&gt; (152 samples, 15.20%)</title><rect x="10.0" y="373" width="179.4" height="15.0" fill="rgb(208,140,6)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="383.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (2 samples, 0.20%)</title><rect x="103.2" y="69" width="2.4" height="15.0" fill="rgb(214,143,6)" rx="2" ry="2" />
-<text text-anchor="" x="106.22" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+<title>Solver.effects (29 samples, 2.90%)</title><rect x="131.5" y="101" width="34.3" height="15.0" fill="rgb(231,229,12)" rx="2" ry="2" />
+<text text-anchor="" x="134.54" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >So..</text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.IORef.Strict.writeIORef (4 samples, 0.40%)</title><rect x="142.2" y="149" width="4.7" height="15.0" fill="rgb(206,84,40)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+<title>Data.Vector.Mutable.basicUnsafeWrite (2 samples, 0.20%)</title><rect x="128.0" y="69" width="2.4" height="15.0" fill="rgb(227,137,45)" rx="2" ry="2" />
+<text text-anchor="" x="131.00" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.concurrently' (120 samples, 12.00%)</title><rect x="10.0" y="341" width="141.6" height="15.0" fill="rgb(250,19,1)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="351.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
+<title>Solver.createReceipe.\ (5 samples, 0.50%)</title><rect x="36.0" y="133" width="5.9" height="15.0" fill="rgb(253,32,33)" rx="2" ry="2" />
+<text text-anchor="" x="38.96" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="1120.4" y="197" width="1.2" height="15.0" fill="rgb(214,155,43)" rx="2" ry="2" />
-<text text-anchor="" x="1123.38" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="56.0" y="85" width="1.2" height="15.0" fill="rgb(222,59,15)" rx="2" ry="2" />
+<text text-anchor="" x="59.02" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.basicUnsafeIndexM (1 samples, 0.10%)</title><rect x="1178.2" y="229" width="1.2" height="15.0" fill="rgb(244,81,31)" rx="2" ry="2" />
-<text text-anchor="" x="1181.20" y="239.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.\.\ (4 samples, 0.40%)</title><rect x="39.5" y="133" width="4.7" height="15.0" fill="rgb(248,76,16)" rx="2" ry="2" />
-<text text-anchor="" x="42.50" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.rnf (2 samples, 0.20%)</title><rect x="146.9" y="149" width="2.3" height="15.0" fill="rgb(226,227,6)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.concurrently (120 samples, 12.00%)</title><rect x="10.0" y="357" width="141.6" height="15.0" fill="rgb(226,171,39)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="367.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.effList (73 samples, 7.30%)</title><rect x="54.8" y="149" width="86.2" height="15.0" fill="rgb(230,16,30)" rx="2" ry="2" />
-<text text-anchor="" x="57.84" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.cre..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\.\.\.\.\.\ (119 samples, 11.90%)</title><rect x="11.2" y="181" width="140.4" height="15.0" fill="rgb(239,126,47)" rx="2" ry="2" />
-<text text-anchor="" x="14.18" y="191.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart...</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.DeepSeq.Generics.grnf_ (4 samples, 0.40%)</title><rect x="142.2" y="117" width="4.7" height="15.0" fill="rgb(209,5,5)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (65 samples, 6.50%)</title><rect x="61.9" y="117" width="76.7" height="15.0" fill="rgb(240,42,20)" rx="2" ry="2" />
-<text text-anchor="" x="64.92" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vec..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (1 samples, 0.10%)</title><rect x="52.5" y="101" width="1.2" height="15.0" fill="rgb(254,43,9)" rx="2" ry="2" />
-<text text-anchor="" x="55.48" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (2 samples, 0.20%)</title><rect x="44.2" y="117" width="2.4" height="15.0" fill="rgb(226,43,24)" rx="2" ry="2" />
-<text text-anchor="" x="47.22" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>all (1,000 samples, 100%)</title><rect x="10.0" y="485" width="1180.0" height="15.0" fill="rgb(227,187,6)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="495.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.scaledValue (2 samples, 0.20%)</title><rect x="41.9" y="117" width="2.3" height="15.0" fill="rgb(231,47,41)" rx="2" ry="2" />
-<text text-anchor="" x="44.86" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (2 samples, 0.20%)</title><rect x="51.3" y="117" width="2.4" height="15.0" fill="rgb(254,171,46)" rx="2" ry="2" />
-<text text-anchor="" x="54.30" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.liftRnfV (2 samples, 0.20%)</title><rect x="146.9" y="85" width="2.3" height="15.0" fill="rgb(207,107,15)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (8 samples, 0.80%)</title><rect x="129.2" y="85" width="9.4" height="15.0" fill="rgb(212,176,46)" rx="2" ry="2" />
-<text text-anchor="" x="132.18" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.liftRnfV.\ (2 samples, 0.20%)</title><rect x="144.5" y="37" width="2.4" height="15.0" fill="rgb(237,87,19)" rx="2" ry="2" />
-<text text-anchor="" x="147.52" y="47.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (1 samples, 0.10%)</title><rect x="139.8" y="101" width="1.2" height="15.0" fill="rgb(223,70,44)" rx="2" ry="2" />
-<text text-anchor="" x="142.80" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.rnf (4 samples, 0.40%)</title><rect x="142.2" y="85" width="4.7" height="15.0" fill="rgb(212,71,23)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.basicUnsafeFreeze (1 samples, 0.10%)</title><rect x="1120.4" y="213" width="1.2" height="15.0" fill="rgb(246,63,46)" rx="2" ry="2" />
-<text text-anchor="" x="1123.38" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Interface.startup (991 samples, 99.10%)</title><rect x="10.0" y="453" width="1169.4" height="15.0" fill="rgb(249,216,50)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="463.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Interface.startup</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (2 samples, 0.20%)</title><rect x="17.1" y="149" width="2.3" height="15.0" fill="rgb(248,100,24)" rx="2" ry="2" />
-<text text-anchor="" x="20.08" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.DeepSeq.Generics.grnf_ (4 samples, 0.40%)</title><rect x="142.2" y="101" width="4.7" height="15.0" fill="rgb(225,130,33)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.liftRnfV (4 samples, 0.40%)</title><rect x="142.2" y="69" width="4.7" height="15.0" fill="rgb(224,129,20)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (1 samples, 0.10%)</title><rect x="18.3" y="133" width="1.1" height="15.0" fill="rgb(248,30,47)" rx="2" ry="2" />
-<text text-anchor="" x="21.26" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.basicUnsafeIndexM (1 samples, 0.10%)</title><rect x="105.6" y="85" width="1.2" height="15.0" fill="rgb(240,37,53)" rx="2" ry="2" />
-<text text-anchor="" x="108.58" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.dura (7 samples, 0.70%)</title><rect x="46.6" y="149" width="8.2" height="15.0" fill="rgb(213,57,21)" rx="2" ry="2" />
-<text text-anchor="" x="49.58" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.effectiveList.\ (11 samples, 1.10%)</title><rect x="93.8" y="101" width="13.0" height="15.0" fill="rgb(227,77,21)" rx="2" ry="2" />
-<text text-anchor="" x="96.78" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="104.4" y="53" width="1.2" height="15.0" fill="rgb(228,42,32)" rx="2" ry="2" />
-<text text-anchor="" x="107.40" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (1 samples, 0.10%)</title><rect x="45.4" y="101" width="1.2" height="15.0" fill="rgb(232,11,34)" rx="2" ry="2" />
-<text text-anchor="" x="48.40" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.basicUnsafeIndexM (48 samples, 4.80%)</title><rect x="1121.6" y="213" width="56.6" height="15.0" fill="rgb(246,184,49)" rx="2" ry="2" />
-<text text-anchor="" x="1124.56" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.V..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.rnf (2 samples, 0.20%)</title><rect x="146.9" y="101" width="2.3" height="15.0" fill="rgb(243,162,14)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (1 samples, 0.10%)</title><rect x="53.7" y="117" width="1.1" height="15.0" fill="rgb(232,138,50)" rx="2" ry="2" />
-<text text-anchor="" x="56.66" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.testForSkyline (9 samples, 0.90%)</title><rect x="141.0" y="165" width="10.6" height="15.0" fill="rgb(239,131,43)" rx="2" ry="2" />
-<text text-anchor="" x="143.98" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.liftRnfV.\ (1 samples, 0.10%)</title><rect x="148.1" y="53" width="1.1" height="15.0" fill="rgb(208,97,48)" rx="2" ry="2" />
-<text text-anchor="" x="151.06" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\ (120 samples, 12.00%)</title><rect x="10.0" y="261" width="141.6" height="15.0" fill="rgb(213,153,9)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="271.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (2 samples, 0.20%)</title><rect x="146.9" y="69" width="2.3" height="15.0" fill="rgb(249,173,20)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (3 samples, 0.30%)</title><rect x="143.3" y="53" width="3.6" height="15.0" fill="rgb(235,32,15)" rx="2" ry="2" />
-<text text-anchor="" x="146.34" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.basicUnsafeIndexM (1 samples, 0.10%)</title><rect x="32.4" y="133" width="1.2" height="15.0" fill="rgb(245,52,2)" rx="2" ry="2" />
-<text text-anchor="" x="35.42" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (3 samples, 0.30%)</title><rect x="15.9" y="165" width="3.5" height="15.0" fill="rgb(226,223,16)" rx="2" ry="2" />
-<text text-anchor="" x="18.90" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart (120 samples, 12.00%)</title><rect x="10.0" y="277" width="141.6" height="15.0" fill="rgb(225,89,4)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="287.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (21 samples, 2.10%)</title><rect x="21.8" y="149" width="24.8" height="15.0" fill="rgb(218,115,42)" rx="2" ry="2" />
-<text text-anchor="" x="24.80" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >D..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (5 samples, 0.50%)</title><rect x="132.7" y="69" width="5.9" height="15.0" fill="rgb(218,71,22)" rx="2" ry="2" />
-<text text-anchor="" x="135.72" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.rnf (4 samples, 0.40%)</title><rect x="142.2" y="133" width="4.7" height="15.0" fill="rgb(253,218,26)" rx="2" ry="2" />
-<text text-anchor="" x="145.16" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.effects (8 samples, 0.80%)</title><rect x="129.2" y="101" width="9.4" height="15.0" fill="rgb(225,188,53)" rx="2" ry="2" />
-<text text-anchor="" x="132.18" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.testForSkyline.gotDominated (2 samples, 0.20%)</title><rect x="149.2" y="149" width="2.4" height="15.0" fill="rgb(221,102,40)" rx="2" ry="2" />
-<text text-anchor="" x="152.24" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (4 samples, 0.40%)</title><rect x="100.9" y="85" width="4.7" height="15.0" fill="rgb(234,204,12)" rx="2" ry="2" />
-<text text-anchor="" x="103.86" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Monad.Primitive.primitive (12 samples, 1.20%)</title><rect x="1103.9" y="181" width="14.1" height="15.0" fill="rgb(209,145,40)" rx="2" ry="2" />
-<text text-anchor="" x="1106.86" y="191.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (3 samples, 0.30%)</title><rect x="90.2" y="101" width="3.6" height="15.0" fill="rgb(226,79,26)" rx="2" ry="2" />
-<text text-anchor="" x="93.24" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>UNKNOWN (9 samples, 0.90%)</title><rect x="1179.4" y="469" width="10.6" height="15.0" fill="rgb(236,174,15)" rx="2" ry="2" />
-<text text-anchor="" x="1182.38" y="479.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe (103 samples, 10.30%)</title><rect x="19.4" y="165" width="121.6" height="15.0" fill="rgb(235,221,10)" rx="2" ry="2" />
-<text text-anchor="" x="22.44" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.createRe..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (2 samples, 0.20%)</title><rect x="149.2" y="117" width="2.4" height="15.0" fill="rgb(231,108,2)" rx="2" ry="2" />
-<text text-anchor="" x="152.24" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.\ (5 samples, 0.50%)</title><rect x="33.6" y="133" width="5.9" height="15.0" fill="rgb(222,143,3)" rx="2" ry="2" />
-<text text-anchor="" x="36.60" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\.\.\.\ (120 samples, 12.00%)</title><rect x="10.0" y="213" width="141.6" height="15.0" fill="rgb(232,229,53)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\.\.\ (120 samples, 12.00%)</title><rect x="10.0" y="229" width="141.6" height="15.0" fill="rgb(225,125,36)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="239.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.effects (19 samples, 1.90%)</title><rect x="106.8" y="101" width="22.4" height="15.0" fill="rgb(250,152,11)" rx="2" ry="2" />
-<text text-anchor="" x="109.76" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >S..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.dominating.fi (1 samples, 0.10%)</title><rect x="150.4" y="85" width="1.2" height="15.0" fill="rgb(250,156,41)" rx="2" ry="2" />
-<text text-anchor="" x="153.42" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.dominating (2 samples, 0.20%)</title><rect x="149.2" y="133" width="2.4" height="15.0" fill="rgb(214,113,20)" rx="2" ry="2" />
-<text text-anchor="" x="152.24" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (1 samples, 0.10%)</title><rect x="31.2" y="133" width="1.2" height="15.0" fill="rgb(232,58,21)" rx="2" ry="2" />
-<text text-anchor="" x="34.24" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="1119.2" y="197" width="1.2" height="15.0" fill="rgb(231,169,13)" rx="2" ry="2" />
-<text text-anchor="" x="1122.20" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.mappend (120 samples, 12.00%)</title><rect x="10.0" y="405" width="141.6" height="15.0" fill="rgb(247,195,4)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="415.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeWrite (31 samples, 3.10%)</title><rect x="1081.4" y="197" width="36.6" height="15.0" fill="rgb(207,93,32)" rx="2" ry="2" />
-<text text-anchor="" x="1084.44" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Dat..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.&lt;&gt; (120 samples, 12.00%)</title><rect x="10.0" y="389" width="141.6" height="15.0" fill="rgb(248,29,36)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="399.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.sum (1 samples, 0.10%)</title><rect x="53.7" y="133" width="1.1" height="15.0" fill="rgb(227,134,32)" rx="2" ry="2" />
-<text text-anchor="" x="56.66" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Util.&gt;&gt;= (3 samples, 0.30%)</title><rect x="50.1" y="133" width="3.6" height="15.0" fill="rgb(220,19,3)" rx="2" ry="2" />
-<text text-anchor="" x="53.12" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>MAIN.MAIN (991 samples, 99.10%)</title><rect x="10.0" y="469" width="1169.4" height="15.0" fill="rgb(242,25,15)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="479.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >MAIN.MAIN</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Mutable.basicUnsafeNew (2 samples, 0.20%)</title><rect x="1118.0" y="213" width="2.4" height="15.0" fill="rgb(217,81,8)" rx="2" ry="2" />
-<text text-anchor="" x="1121.02" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Monad.Primitive.primitive (2 samples, 0.20%)</title><rect x="136.3" y="53" width="2.3" height="15.0" fill="rgb(208,172,21)" rx="2" ry="2" />
-<text text-anchor="" x="139.26" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Data.Vector.Fusion.Stream.Monadic.fmap (73 samples, 7.30%)</title><rect x="1031.9" y="213" width="86.1" height="15.0" fill="rgb(219,1,37)" rx="2" ry="2" />
-<text text-anchor="" x="1034.88" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vecto..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.effectiveList.someEffective (2 samples, 0.20%)</title><rect x="138.6" y="117" width="2.4" height="15.0" fill="rgb(239,225,20)" rx="2" ry="2" />
-<text text-anchor="" x="141.62" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.dominating.\ (1 samples, 0.10%)</title><rect x="150.4" y="101" width="1.2" height="15.0" fill="rgb(246,170,11)" rx="2" ry="2" />
-<text text-anchor="" x="153.42" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\.\.\.\.\ (120 samples, 12.00%)</title><rect x="10.0" y="197" width="141.6" height="15.0" fill="rgb(216,44,24)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.createReceipe.\ (2 samples, 0.20%)</title><rect x="44.2" y="133" width="2.4" height="15.0" fill="rgb(246,113,37)" rx="2" ry="2" />
-<text text-anchor="" x="47.22" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.DeepSeq.Generics.grnf_ (2 samples, 0.20%)</title><rect x="146.9" y="133" width="2.3" height="15.0" fill="rgb(210,184,2)" rx="2" ry="2" />
-<text text-anchor="" x="149.88" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.fmap (120 samples, 12.00%)</title><rect x="10.0" y="293" width="141.6" height="15.0" fill="rgb(212,28,15)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="303.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.concurrently'.\ (120 samples, 12.00%)</title><rect x="10.0" y="325" width="141.6" height="15.0" fill="rgb(231,170,15)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="335.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
-</g>
-<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.solvePart.\.\ (120 samples, 12.00%)</title><rect x="10.0" y="245" width="141.6" height="15.0" fill="rgb(242,164,39)" rx="2" ry="2" />
+<title>Solver.solvePart.\.\ (152 samples, 15.20%)</title><rect x="10.0" y="245" width="179.4" height="15.0" fill="rgb(214,218,0)" rx="2" ry="2" />
 <text text-anchor="" x="13.00" y="255.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\.\</text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Control.Concurrent.Async.&lt;*&gt; (120 samples, 12.00%)</title><rect x="10.0" y="373" width="141.6" height="15.0" fill="rgb(253,53,10)" rx="2" ry="2" />
-<text text-anchor="" x="13.00" y="383.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent..</text>
+<title>Control.Monad.Primitive.primitive (2 samples, 0.20%)</title><rect x="176.4" y="53" width="2.3" height="15.0" fill="rgb(242,111,24)" rx="2" ry="2" />
+<text text-anchor="" x="179.38" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 <g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
-<title>Solver.effectiveList (73 samples, 7.30%)</title><rect x="54.8" y="133" width="86.2" height="15.0" fill="rgb(232,196,21)" rx="2" ry="2" />
-<text text-anchor="" x="57.84" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.eff..</text>
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (826 samples, 82.60%)</title><rect x="197.6" y="229" width="974.7" height="15.0" fill="rgb(241,150,40)" rx="2" ry="2" />
+<text text-anchor="" x="200.62" y="239.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vector.Fusion.Util.&gt;&gt;=</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.testForSkyline (8 samples, 0.80%)</title><rect x="179.9" y="165" width="9.5" height="15.0" fill="rgb(212,46,40)" rx="2" ry="2" />
+<text text-anchor="" x="182.92" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.dominating.fi (1 samples, 0.10%)</title><rect x="188.2" y="85" width="1.2" height="15.0" fill="rgb(216,14,28)" rx="2" ry="2" />
+<text text-anchor="" x="191.18" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (1 samples, 0.10%)</title><rect x="57.2" y="117" width="1.2" height="15.0" fill="rgb(254,142,25)" rx="2" ry="2" />
+<text text-anchor="" x="60.20" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.testForSkyline.gotDominated (2 samples, 0.20%)</title><rect x="187.0" y="149" width="2.4" height="15.0" fill="rgb(247,219,43)" rx="2" ry="2" />
+<text text-anchor="" x="190.00" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeNew (3 samples, 0.30%)</title><rect x="1131.0" y="213" width="3.5" height="15.0" fill="rgb(252,226,47)" rx="2" ry="2" />
+<text text-anchor="" x="1134.00" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart.\.\.\.\.\ (152 samples, 15.20%)</title><rect x="10.0" y="197" width="179.4" height="15.0" fill="rgb(253,170,46)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\.\.\...</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart (152 samples, 15.20%)</title><rect x="10.0" y="277" width="179.4" height="15.0" fill="rgb(235,44,40)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="287.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.dominating (2 samples, 0.20%)</title><rect x="187.0" y="133" width="2.4" height="15.0" fill="rgb(236,223,19)" rx="2" ry="2" />
+<text text-anchor="" x="190.00" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe.dura (8 samples, 0.80%)</title><rect x="48.9" y="149" width="9.5" height="15.0" fill="rgb(250,65,33)" rx="2" ry="2" />
+<text text-anchor="" x="51.94" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="1134.5" y="197" width="1.2" height="15.0" fill="rgb(206,216,34)" rx="2" ry="2" />
+<text text-anchor="" x="1137.54" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe.\ (2 samples, 0.20%)</title><rect x="46.6" y="133" width="2.3" height="15.0" fill="rgb(210,82,36)" rx="2" ry="2" />
+<text text-anchor="" x="49.58" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.&lt;&gt; (152 samples, 15.20%)</title><rect x="10.0" y="389" width="179.4" height="15.0" fill="rgb(222,2,38)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="399.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe.\.\ (4 samples, 0.40%)</title><rect x="41.9" y="133" width="4.7" height="15.0" fill="rgb(209,192,38)" rx="2" ry="2" />
+<text text-anchor="" x="44.86" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (75 samples, 7.50%)</title><rect x="1042.5" y="213" width="88.5" height="15.0" fill="rgb(252,18,20)" rx="2" ry="2" />
+<text text-anchor="" x="1045.50" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vecto..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.concurrently'.\ (152 samples, 15.20%)</title><rect x="10.0" y="325" width="179.4" height="15.0" fill="rgb(206,174,10)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="335.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeWrite (2 samples, 0.20%)</title><rect x="54.8" y="101" width="2.4" height="15.0" fill="rgb(245,172,14)" rx="2" ry="2" />
+<text text-anchor="" x="57.84" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>all (1,000 samples, 100%)</title><rect x="10.0" y="485" width="1180.0" height="15.0" fill="rgb(214,166,33)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="495.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeWrite (1 samples, 0.10%)</title><rect x="18.3" y="133" width="1.1" height="15.0" fill="rgb(214,81,41)" rx="2" ry="2" />
+<text text-anchor="" x="21.26" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart.\.\.\ (152 samples, 15.20%)</title><rect x="10.0" y="229" width="179.4" height="15.0" fill="rgb(223,68,36)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="239.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\.\.\</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (1 samples, 0.10%)</title><rect x="33.6" y="133" width="1.2" height="15.0" fill="rgb(242,94,12)" rx="2" ry="2" />
+<text text-anchor="" x="36.60" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.basicUnsafeFreeze (1 samples, 0.10%)</title><rect x="1134.5" y="213" width="1.2" height="15.0" fill="rgb(252,179,49)" rx="2" ry="2" />
+<text text-anchor="" x="1137.54" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.liftRnfV.\ (1 samples, 0.10%)</title><rect x="185.8" y="53" width="1.2" height="15.0" fill="rgb(247,111,33)" rx="2" ry="2" />
+<text text-anchor="" x="188.82" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (3 samples, 0.30%)</title><rect x="53.7" y="117" width="3.5" height="15.0" fill="rgb(253,137,13)" rx="2" ry="2" />
+<text text-anchor="" x="56.66" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.effectiveList.someEffective (1 samples, 0.10%)</title><rect x="178.7" y="117" width="1.2" height="15.0" fill="rgb(239,45,52)" rx="2" ry="2" />
+<text text-anchor="" x="181.74" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe.effList (103 samples, 10.30%)</title><rect x="58.4" y="149" width="121.5" height="15.0" fill="rgb(209,65,28)" rx="2" ry="2" />
+<text text-anchor="" x="61.38" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.createRe..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.liftRnfV.\ (1 samples, 0.10%)</title><rect x="183.5" y="37" width="1.1" height="15.0" fill="rgb(249,181,49)" rx="2" ry="2" />
+<text text-anchor="" x="186.46" y="47.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.basicUnsafeIndexM (1 samples, 0.10%)</title><rect x="34.8" y="133" width="1.2" height="15.0" fill="rgb(250,103,30)" rx="2" ry="2" />
+<text text-anchor="" x="37.78" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.concurrently (152 samples, 15.20%)</title><rect x="10.0" y="357" width="179.4" height="15.0" fill="rgb(236,85,19)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="367.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (2 samples, 0.20%)</title><rect x="182.3" y="53" width="2.3" height="15.0" fill="rgb(240,111,34)" rx="2" ry="2" />
+<text text-anchor="" x="185.28" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (4 samples, 0.40%)</title><rect x="112.7" y="101" width="4.7" height="15.0" fill="rgb(235,204,26)" rx="2" ry="2" />
+<text text-anchor="" x="115.66" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (2 samples, 0.20%)</title><rect x="17.1" y="149" width="2.3" height="15.0" fill="rgb(254,110,30)" rx="2" ry="2" />
+<text text-anchor="" x="20.08" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart.\.\.\.\ (152 samples, 15.20%)</title><rect x="10.0" y="213" width="179.4" height="15.0" fill="rgb(241,59,54)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\.\.\.\</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe (135 samples, 13.50%)</title><rect x="20.6" y="165" width="159.3" height="15.0" fill="rgb(254,87,2)" rx="2" ry="2" />
+<text text-anchor="" x="23.62" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.createReceipe</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeWrite (6 samples, 0.60%)</title><rect x="171.7" y="69" width="7.0" height="15.0" fill="rgb(228,155,42)" rx="2" ry="2" />
+<text text-anchor="" x="174.66" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (2 samples, 0.20%)</title><rect x="46.6" y="117" width="2.3" height="15.0" fill="rgb(224,216,18)" rx="2" ry="2" />
+<text text-anchor="" x="49.58" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>UNKNOWN (15 samples, 1.50%)</title><rect x="1172.3" y="469" width="17.7" height="15.0" fill="rgb(243,203,17)" rx="2" ry="2" />
+<text text-anchor="" x="1175.30" y="479.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.dominating.\ (1 samples, 0.10%)</title><rect x="188.2" y="101" width="1.2" height="15.0" fill="rgb(242,78,53)" rx="2" ry="2" />
+<text text-anchor="" x="191.18" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (1 samples, 0.10%)</title><rect x="178.7" y="101" width="1.2" height="15.0" fill="rgb(233,177,42)" rx="2" ry="2" />
+<text text-anchor="" x="181.74" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.rnf (3 samples, 0.30%)</title><rect x="181.1" y="85" width="3.5" height="15.0" fill="rgb(213,206,43)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Generic.Mutable.Base.basicUnsafeGrow (1 samples, 0.10%)</title><rect x="19.4" y="165" width="1.2" height="15.0" fill="rgb(226,180,5)" rx="2" ry="2" />
+<text text-anchor="" x="22.44" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (21 samples, 2.10%)</title><rect x="24.2" y="149" width="24.7" height="15.0" fill="rgb(229,181,17)" rx="2" ry="2" />
+<text text-anchor="" x="27.16" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >D..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="129.2" y="53" width="1.2" height="15.0" fill="rgb(242,204,47)" rx="2" ry="2" />
+<text text-anchor="" x="132.18" y="63.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>MAIN.MAIN (985 samples, 98.50%)</title><rect x="10.0" y="469" width="1162.3" height="15.0" fill="rgb(207,48,7)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="479.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >MAIN.MAIN</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.basicUnsafeIndexM (1 samples, 0.10%)</title><rect x="130.4" y="85" width="1.1" height="15.0" fill="rgb(216,55,19)" rx="2" ry="2" />
+<text text-anchor="" x="133.36" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.concurrently' (152 samples, 15.20%)</title><rect x="10.0" y="341" width="179.4" height="15.0" fill="rgb(213,76,16)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="351.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.IORef.Strict.writeIORef (3 samples, 0.30%)</title><rect x="181.1" y="149" width="3.5" height="15.0" fill="rgb(248,83,54)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="159.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeWrite (1 samples, 0.10%)</title><rect x="47.8" y="101" width="1.1" height="15.0" fill="rgb(232,213,40)" rx="2" ry="2" />
+<text text-anchor="" x="50.76" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Mutable.basicUnsafeWrite (32 samples, 3.20%)</title><rect x="1093.2" y="197" width="37.8" height="15.0" fill="rgb(219,54,29)" rx="2" ry="2" />
+<text text-anchor="" x="1096.24" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Dat..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Interface.startup (985 samples, 98.50%)</title><rect x="10.0" y="453" width="1162.3" height="15.0" fill="rgb(248,144,47)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="463.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Interface.startup</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (11 samples, 1.10%)</title><rect x="165.8" y="85" width="12.9" height="15.0" fill="rgb(234,1,20)" rx="2" ry="2" />
+<text text-anchor="" x="168.76" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (2 samples, 0.20%)</title><rect x="184.6" y="69" width="2.4" height="15.0" fill="rgb(252,56,51)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.rnf (2 samples, 0.20%)</title><rect x="184.6" y="101" width="2.4" height="15.0" fill="rgb(214,223,43)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.DeepSeq.Generics.grnf_ (2 samples, 0.20%)</title><rect x="184.6" y="133" width="2.4" height="15.0" fill="rgb(219,113,45)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart.\ (152 samples, 15.20%)</title><rect x="10.0" y="261" width="179.4" height="15.0" fill="rgb(240,223,1)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="271.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (3 samples, 0.30%)</title><rect x="15.9" y="165" width="3.5" height="15.0" fill="rgb(227,38,14)" rx="2" ry="2" />
+<text text-anchor="" x="18.90" y="175.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.liftRnfV (3 samples, 0.30%)</title><rect x="181.1" y="69" width="3.5" height="15.0" fill="rgb(235,155,17)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="79.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Monad.Primitive.primitive (1 samples, 0.10%)</title><rect x="1133.4" y="197" width="1.1" height="15.0" fill="rgb(218,29,27)" rx="2" ry="2" />
+<text text-anchor="" x="1136.36" y="207.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.effectiveList (103 samples, 10.30%)</title><rect x="58.4" y="133" width="121.5" height="15.0" fill="rgb(227,10,52)" rx="2" ry="2" />
+<text text-anchor="" x="61.38" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.effectiv..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.rnf (3 samples, 0.30%)</title><rect x="181.1" y="133" width="3.5" height="15.0" fill="rgb(230,180,2)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (4 samples, 0.40%)</title><rect x="52.5" y="133" width="4.7" height="15.0" fill="rgb(208,156,42)" rx="2" ry="2" />
+<text text-anchor="" x="55.48" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Util.&gt;&gt;= (93 samples, 9.30%)</title><rect x="69.0" y="117" width="109.7" height="15.0" fill="rgb(251,140,29)" rx="2" ry="2" />
+<text text-anchor="" x="72.00" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Data.Vector.F..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.DeepSeq.Generics.grnf_ (3 samples, 0.30%)</title><rect x="181.1" y="101" width="3.5" height="15.0" fill="rgb(228,219,25)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.solvePart.\.\.\.\.\.\ (151 samples, 15.10%)</title><rect x="11.2" y="181" width="178.2" height="15.0" fill="rgb(248,22,17)" rx="2" ry="2" />
+<text text-anchor="" x="14.18" y="191.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Solver.solvePart.\.\.\...</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.fmap (152 samples, 15.20%)</title><rect x="10.0" y="293" width="179.4" height="15.0" fill="rgb(242,151,38)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="303.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.basicUnsafeIndexM (31 samples, 3.10%)</title><rect x="1135.7" y="213" width="36.6" height="15.0" fill="rgb(248,177,26)" rx="2" ry="2" />
+<text text-anchor="" x="1138.72" y="223.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Dat..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.liftRnfV (2 samples, 0.20%)</title><rect x="184.6" y="85" width="2.4" height="15.0" fill="rgb(253,59,14)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.effects (11 samples, 1.10%)</title><rect x="165.8" y="101" width="12.9" height="15.0" fill="rgb(252,91,8)" rx="2" ry="2" />
+<text text-anchor="" x="168.76" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.sum (1 samples, 0.10%)</title><rect x="57.2" y="133" width="1.2" height="15.0" fill="rgb(228,6,16)" rx="2" ry="2" />
+<text text-anchor="" x="60.20" y="143.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.DeepSeq.Generics.grnf_ (2 samples, 0.20%)</title><rect x="184.6" y="117" width="2.4" height="15.0" fill="rgb(244,190,42)" rx="2" ry="2" />
+<text text-anchor="" x="187.64" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Data.Vector.Fusion.Stream.Monadic.fmap (4 samples, 0.40%)</title><rect x="125.6" y="85" width="4.8" height="15.0" fill="rgb(211,121,31)" rx="2" ry="2" />
+<text text-anchor="" x="128.64" y="95.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.createReceipe.scaledValue (2 samples, 0.20%)</title><rect x="44.2" y="117" width="2.4" height="15.0" fill="rgb(233,139,36)" rx="2" ry="2" />
+<text text-anchor="" x="47.22" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.mappend (152 samples, 15.20%)</title><rect x="10.0" y="405" width="179.4" height="15.0" fill="rgb(209,190,22)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="415.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Monad.Primitive.primitive (12 samples, 1.20%)</title><rect x="1116.8" y="181" width="14.2" height="15.0" fill="rgb(209,119,1)" rx="2" ry="2" />
+<text text-anchor="" x="1119.84" y="191.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Solver.effectiveList.\ (12 samples, 1.20%)</title><rect x="117.4" y="101" width="14.1" height="15.0" fill="rgb(207,126,22)" rx="2" ry="2" />
+<text text-anchor="" x="120.38" y="111.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.Concurrent.Async.catchAll (152 samples, 15.20%)</title><rect x="10.0" y="309" width="179.4" height="15.0" fill="rgb(205,205,35)" rx="2" ry="2" />
+<text text-anchor="" x="13.00" y="319.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  >Control.Concurrent.Asyn..</text>
+</g>
+<g class="func_g" onmouseover="s(this)" onmouseout="c()" onclick="zoom(this)">
+<title>Control.DeepSeq.Generics.grnf_ (3 samples, 0.30%)</title><rect x="181.1" y="117" width="3.5" height="15.0" fill="rgb(210,46,33)" rx="2" ry="2" />
+<text text-anchor="" x="184.10" y="127.5" font-size="12" font-family="Verdana" fill="rgb(0,0,0)"  ></text>
 </g>
 </svg>
