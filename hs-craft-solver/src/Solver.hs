@@ -8,20 +8,23 @@ import Ingredients
       hasSkillPointReq )
 import Control.Monad ( unless, foldM, when )
 import Data.List.Split ( chunksOf )
-import Data.List ( find, nub )
-import Debug.Trace ()
+import Data.List ( find, nub, sortOn )
+import Debug.Trace (trace)
 import Control.Concurrent.Async ( mapConcurrently )
 import Control.DeepSeq ( NFData(..), force )
 import Control.Exception (evaluate)
 import Control.DeepSeq.Generics (genericRnf)
 import GHC.Generics ( Generic )
 import Control.Parallel ()
+import Data.Ord ( Down(Down) )
 import qualified Data.Vector as V
 
 
 data RecipeResult = RecipeResult {itemnames::V.Vector String, stats::V.Vector (String,Int), finalDurability::Int} deriving (Show, Generic)
 instance NFData RecipeResult where rnf = genericRnf
 
+instance Eq RecipeResult where
+   (==) (RecipeResult _ attributes dur) (RecipeResult _ attributes2 dur2) = attributes == attributes2 && dur == dur2
 
 
 solve :: String -> [String] -> Int -> Int -> [Ingredient] -> IO ()
@@ -68,8 +71,11 @@ solve skill attributes mindurability lvl allIngredients = do
     print "Threadresults"
     print results
     print "final skyline"
-    print finalSkyline
-    return ()
+
+    --sort finalSkyline
+    let sortedFinalSkyline = sortOn (Down . findReceiptAttribute (head attributes)) finalSkyline
+    mapM_ print sortedFinalSkyline
+    --return ()
 
 solvePart :: [String] -> Int -> [Ingredient] -> [Ingredient] -> IO [RecipeResult]
 solvePart attributes mindurability allIng partialIng = do
@@ -86,11 +92,13 @@ createReceipe mindurability attr ingr
   | dura + mindurability < 0 = Nothing
   | otherwise = Just $ RecipeResult 
                 (V.map name ingr) 
-                (V.map (\att -> (att, sum $ V.zipWith(\ ing ind -> scaledValue ind $ foundAttribute (V.find ((== att) . fst) $ identifications ing)) ingr (V.generate (length ingr) id)))attr) 
+                (V.map (\att -> (att, 
+                    sum $ V.zipWith (\ ing ind -> scaledValue ind $ foundAttribute (V.find ((== att) . fst) $ identifications ing)) ingr (V.generate (length ingr) id)))
+                  attr) 
                 dura
     where
         dura = sum $ V.map durability ingr
-        scaledValue pos i = (`div` 100) ((effList V.! pos) + 100)*i
+        scaledValue pos i = (`div` 100) (((effList V.! pos) + 100)*i)
         effList = effectiveList ingr
         foundAttribute :: Maybe (String,(Int,Int)) -> Int
         foundAttribute (Just (_,(_,x))) = x
@@ -113,7 +121,9 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     let gotDominated = any (dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
     let filteredskylinePoints = if not gotDominated then filter (\sky -> not $ dominating attributes sky receipt) currentSkyline else currentSkyline
     let noncompareable = incompareable attributes receipt filteredskylinePoints
-    let newSkyline = if noncompareable && not gotDominated then receipt:filteredskylinePoints else filteredskylinePoints 
+    let newSkyline = if noncompareable && not gotDominated then receipt:filteredskylinePoints else filteredskylinePoints -- && notElem receipt filteredskylinePoints
+
+    --when (V.fromList ["Decaying Heart", "Elephelk Trunk", "Elephelk Trunk", "Ancient Currency", "Ancient Currency", "Ancient Currency"] == itemnames receipt) (print receipt) 
     --when noncompareable (putStrLn "not comparable")
     --when noncompareable (print receipt) 
     --when noncompareable (print currentSkyline) 
@@ -127,18 +137,18 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     return newSkyline
 
 dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominat = all (\att -> fi att dominat >= fi att first) attributes && any (\att -> fi att dominat > fi att first) attributes
-  where
-    fi attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
-    foundAttribute :: Maybe (String,Int) -> Int
-    foundAttribute (Just (_,x)) = x
-    foundAttribute Nothing = error "Receipt with wrong attributes"
+dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) attributes && finalDurability dominat >= finalDurability first)
+                                        && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) attributes || finalDurability dominat > finalDurability first)
 
 incompareable :: V.Vector String -> RecipeResult -> [RecipeResult] -> Bool
 incompareable _ _ [] = True
-incompareable attributes receip othereceips = any (\att -> any (\recei -> fi att receip > fi att recei) othereceips) attributes
+incompareable attributes receip othereceips = any (\att -> any (\recei -> findReceiptAttribute att receip > findReceiptAttribute att recei) othereceips) attributes
+
+
+
+findReceiptAttribute :: String -> RecipeResult -> Int
+findReceiptAttribute attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
   where
-    fi attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
     foundAttribute :: Maybe (String,Int) -> Int
     foundAttribute (Just (_,x)) = x
     foundAttribute Nothing = error "Receipt with wrong attributes"
