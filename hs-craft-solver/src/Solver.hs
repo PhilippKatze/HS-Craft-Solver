@@ -4,7 +4,7 @@ module Solver
     ) where
 
 import Ingredients
-    ( Ingredient(effectiveness, skills, level, durability, name, identifications, isEffectniss),
+    ( Ingredient(Ingredient, effectiveness, skills, level, durability, name, identifications, isEffectniss),
       hasSkillPointReq )
 import Control.Monad ( unless, foldM, when )
 import Data.List.Split ( chunksOf )
@@ -37,6 +37,14 @@ solve skill attributes mindurability lvl allIngredients = do
     let skillReqIngredients = filter hasSkillPointReq allSkillIngredientsInLevelRange
     let statIngredients = filter (any ((`elem` attributes) . fst) . identifications) allSkillIngredientsInLevelRange --TODO filter effectiveness items
 
+
+    let allIngrd = nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
+
+    --remove unused attributes
+    let setAttributes attrub (Ingredient nam tie lvel skil _ dur req char durat isEff effe) = Ingredient nam tie lvel skil attrub dur req char durat isEff effe --TODO replace with lenses
+
+    let ingWithAjustedStats = map (\ing -> setAttributes (V.fromList (map (\att -> (att, (0,findIngridientAttribute att ing))) attributes)) ing) allIngrd
+
     ------DEBUG-------
     putStrLn $ "All Effectivness Ingredients: " ++ show (map name effectivenessIngredients)
     putStrLn ""
@@ -47,6 +55,8 @@ solve skill attributes mindurability lvl allIngredients = do
     putStrLn $ "All Skill Requirement Ingredients: " ++ show (map name skillReqIngredients)
     putStrLn ""
     putStrLn "Calculation starting..."
+
+    print ingWithAjustedStats
 
     --let tests = filter ((`elem` ["Elephelk Trunk","Green Foot","Major's Badge","Accursed Effigy"]) . name) allIngredients
     --let test2 = [tests!!2,tests!!0,tests!!3,tests!!1,tests!!3,tests!!1]
@@ -61,10 +71,9 @@ solve skill attributes mindurability lvl allIngredients = do
     --Alle Rezepte mit ohne effectivness items müssen performanter klappen als zu bruteforcen (heuristik? search algorithms?)
     
     -- mpi support ? 
-    let allIngrd = nub $ concat [effectivenessIngredients,durabilityIngredients,statIngredients] -- adding skill req items?
-    let multiChunks = chunksOf (div (length allIngrd) 16) allIngrd --how many threads?
+    let multiChunks = chunksOf (div (length ingWithAjustedStats) 16) ingWithAjustedStats --how many threads?
     putStrLn $ "Threads started: " ++ show (length multiChunks)
-    results <- mapConcurrently (solvePart attributes mindurability allIngrd) multiChunks
+    results <- mapConcurrently (solvePart attributes mindurability ingWithAjustedStats) multiChunks
 
     finalSkyline <- foldM (testForSkyline (V.fromList attributes)) [] $ map return $ concat results
 
@@ -92,17 +101,16 @@ createReceipe mindurability attr ingr
   | dura + mindurability < 0 = Nothing
   | otherwise = Just $ RecipeResult 
                 (V.map name ingr) 
-                (V.map (\att -> (att, 
-                    sum $ V.zipWith (\ ing ind -> scaledValue ind $ foundAttribute (V.find ((== att) . fst) $ identifications ing)) ingr (V.generate (length ingr) id)))
-                  attr) 
+                (V.map (\att -> (fst att, 
+                    sum $ V.zipWith (\ ing ind -> scaledValue ind $ foundAttribute ((V.!) (identifications ing) $ snd att)) ingr (V.generate (length ingr) id)))
+                  (V.zip attr $ V.generate (length attr) id)) 
                 dura
     where
         dura = sum $ V.map durability ingr
         scaledValue pos i = (`div` 100) (((effList V.! pos) + 100)*i)
         effList = effectiveList ingr
-        foundAttribute :: Maybe (String,(Int,Int)) -> Int
-        foundAttribute (Just (_,(_,x))) = x
-        foundAttribute Nothing = 0
+        foundAttribute :: (String,(Int,Int)) -> Int
+        foundAttribute (_,(_,x)) = x
 
 
 effectiveList :: V.Vector Ingredient -> V.Vector Int
@@ -128,6 +136,8 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     --when noncompareable (print receipt) 
     --when noncompareable (print currentSkyline) 
     --when noncompareable (print newSkyline)
+    when (noncompareable && not gotDominated) (print receipt) 
+    --when (noncompareable && not gotDominated) (print $ length newSkyline) 
 
     --unless gotDominated (putStrLn "not gotDominated")
     --unless gotDominated (print receipt) 
@@ -137,8 +147,8 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     return newSkyline
 
 dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) attributes && finalDurability dominat >= finalDurability first)
-                                        && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) attributes || finalDurability dominat > finalDurability first)
+dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) attributes )-- && finalDurability dominat >= finalDurability first)
+                                        && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) attributes )-- || finalDurability dominat > finalDurability first)
 
 incompareable :: V.Vector String -> RecipeResult -> [RecipeResult] -> Bool
 incompareable _ _ [] = True
@@ -152,3 +162,11 @@ findReceiptAttribute attr receipt = foundAttribute $ find ((== attr) . fst) $ st
     foundAttribute :: Maybe (String,Int) -> Int
     foundAttribute (Just (_,x)) = x
     foundAttribute Nothing = error "Receipt with wrong attributes"
+
+
+findIngridientAttribute :: String -> Ingredient -> Int
+findIngridientAttribute attr ingri = foundAttribute $ find ((== attr) . fst) $ identifications ingri
+  where
+    foundAttribute :: Maybe (String,(Int,Int)) -> Int
+    foundAttribute (Just (_, (_,x)))= x
+    foundAttribute Nothing = 0
