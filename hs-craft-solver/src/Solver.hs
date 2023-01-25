@@ -56,42 +56,32 @@ solve skill attributes mindurability lvl allIngredients = do
     putStrLn ""
     putStrLn "Calculation starting..."
 
-    print ingWithAjustedStats
-
-    --let tests = filter ((`elem` ["Elephelk Trunk","Green Foot","Major's Badge","Accursed Effigy"]) . name) allIngredients
-    --let test2 = [tests!!2,tests!!0,tests!!3,tests!!1,tests!!3,tests!!1]
-    --mapM_ print test2
-    --print $ effectiveList $ V.fromList test2
-    --mapM_ (\(ing,pos) -> print $ map (effects pos) (V.toList $ effectiveness ing)) $ zip test2 [0..]
-    --print $ foldl (zipWith (+)) [0,0,0,0,0,0] $ concatMap (\(ing,pos) -> map (V.toList . effects pos) (V.toList $ effectiveness ing)) $ zip test2 [0..]
-
-
-    --effects :: Int -> (String,Int) -> V.Vector Int
-
     --Alle Rezepte mit ohne effectivness items müssen performanter klappen als zu bruteforcen (heuristik? search algorithms?)
     
     -- mpi support ? 
     let multiChunks = chunksOf (div (length ingWithAjustedStats) 16) ingWithAjustedStats --how many threads?
     putStrLn $ "Threads started: " ++ show (length multiChunks)
-    results <- mapConcurrently (solvePart attributes mindurability ingWithAjustedStats) multiChunks
+    resultDList <- mapConcurrently (solvePart attributes mindurability ingWithAjustedStats) multiChunks
+    let results = concat resultDList
 
-    finalSkyline <- foldM (testForSkyline (V.fromList attributes)) [] $ map return $ concat results
+    finalSkyline <- foldM (\list value -> testForSkyline (V.fromList attributes) list (fst value + 1, length results) (snd value)) [] $ zip [0..] $ map return results
 
     print "Threadresults"
     print results
     print "final skyline"
 
     --sort finalSkyline
-    let sortedFinalSkyline = sortOn (Down . findReceiptAttribute (head attributes)) finalSkyline
+    let sortedFinalSkyline = sortOn (Down . findReceiptAttribute 0) finalSkyline
     mapM_ print sortedFinalSkyline
     --return ()
 
 solvePart :: [String] -> Int -> [Ingredient] -> [Ingredient] -> IO [RecipeResult]
 solvePart attributes mindurability allIng partialIng = do
-    foldM (\list value -> testForSkyline attributesVec list $ createReceipe mindurability attributesVec $ V.fromList value) [] allpermutations
+    foldM (\list value -> testForSkyline attributesVec list (fst value + 1, allpermutationsAmount)$ createReceipe mindurability attributesVec $ V.fromList $ snd value) [] $ zip [0..] allpermutations
     where
       attributesVec =  V.fromList attributes
       allpermutations = [[p,a1,a2,a3,a4,a5] | p <- partialIng, a1 <- allIng, a2 <- allIng, a3 <- allIng, a4 <- allIng, a5 <- allIng]
+      allpermutationsAmount = length partialIng * (length allIng ^ 5)
     
 
 --TODO cleanup? xD
@@ -101,31 +91,26 @@ createReceipe mindurability attr ingr
   | dura + mindurability < 0 = Nothing
   | otherwise = Just $ RecipeResult 
                 (V.map name ingr) 
-                (V.map (\att -> (fst att, 
-                    sum $ V.zipWith (\ ing ind -> scaledValue ind $ foundAttribute ((V.!) (identifications ing) $ snd att)) ingr (V.generate (length ingr) id)))
-                  (V.zip attr $ V.generate (length attr) id)) 
+                (V.generate (length attr) (\att -> ((V.! att) attr, 
+                    V.foldl (\li va -> (+ li) $ scaledValue va $ snd $ snd ((V.!) (identifications $ (V.! va) ingr) att)) 0 $ V.generate 6 id))) 
                 dura
     where
-        dura = sum $ V.map durability ingr
+        dura = V.foldl (\li va -> durability va + li) 0 ingr --sum over durability of ingr
         scaledValue pos i = (`div` 100) (((effList V.! pos) + 100)*i)
         effList = effectiveList ingr
-        foundAttribute :: (String,(Int,Int)) -> Int
-        foundAttribute (_,(_,x)) = x
 
 
 effectiveList :: V.Vector Ingredient -> V.Vector Int
 effectiveList ingrednients
-  | someEffective ingrednients = addLists $ V.map (\(ing,pos) -> (V.! pos) $ effectiveness ing) filteredEffectivnessList
+  | someEffective = V.generate 6 (\index -> V.foldl (\li va -> (+ li) $ (V.! index)$ (V.! va) $ effectiveness $ (V.! va) ingrednients) 0 $ V.generate 6 id) --(V.! pos) $ effectiveness ing) --0 filteredEffectivnessList
   | otherwise = V.replicate 6 0
   where
-    filteredEffectivnessList = V.filter (isEffectniss . fst) $ V.zip ingrednients $ V.generate (length ingrednients) id 
-    someEffective = V.or . V.map isEffectniss
-    addLists = V.foldl (V.zipWith (+)) (V.replicate 6 0)
+    someEffective = V.any isEffectniss ingrednients
 
 
-testForSkyline :: V.Vector String -> [RecipeResult] -> Maybe RecipeResult -> IO [RecipeResult]
-testForSkyline _ currentSkyline  Nothing = return currentSkyline
-testForSkyline attributes currentSkyline (Just receipt) = do
+testForSkyline :: V.Vector String -> [RecipeResult] -> (Int,Int) -> Maybe RecipeResult -> IO [RecipeResult]
+testForSkyline _ currentSkyline progress Nothing = return currentSkyline
+testForSkyline attributes currentSkyline progress (Just receipt) = do
     let gotDominated = any (dominating attributes receipt) currentSkyline --rezept wird von dominiert -> discard
     let filteredskylinePoints = if not gotDominated then filter (\sky -> not $ dominating attributes sky receipt) currentSkyline else currentSkyline
     let noncompareable = incompareable attributes receipt filteredskylinePoints
@@ -136,7 +121,8 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     --when noncompareable (print receipt) 
     --when noncompareable (print currentSkyline) 
     --when noncompareable (print newSkyline)
-    when (noncompareable && not gotDominated) (print receipt) 
+    when (mod (fst progress) 1000000 == 0) (print $ "Progress " ++ show ( 100 * (/) (fromIntegral $ fst progress) (fromIntegral $ snd progress)))
+    --when (noncompareable && not gotDominated) (print receipt) 
     --when (noncompareable && not gotDominated) (print $ length newSkyline) 
 
     --unless gotDominated (putStrLn "not gotDominated")
@@ -147,21 +133,16 @@ testForSkyline attributes currentSkyline (Just receipt) = do
     return newSkyline
 
 dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) attributes )-- && finalDurability dominat >= finalDurability first)
-                                        && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) attributes )-- || finalDurability dominat > finalDurability first)
+dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) (V.generate (length attributes) id) )-- && finalDurability dominat >= finalDurability first)
+                                       -- && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) (V.generate (length attributes) id) )-- || finalDurability dominat > finalDurability first)
 
 incompareable :: V.Vector String -> RecipeResult -> [RecipeResult] -> Bool
 incompareable _ _ [] = True
-incompareable attributes receip othereceips = any (\att -> any (\recei -> findReceiptAttribute att receip > findReceiptAttribute att recei) othereceips) attributes
+incompareable attributes receip othereceips = any (\att -> any (\recei -> findReceiptAttribute att receip > findReceiptAttribute att recei) othereceips)  (V.generate (length attributes) id)
 
 
-
-findReceiptAttribute :: String -> RecipeResult -> Int
-findReceiptAttribute attr receipt = foundAttribute $ find ((== attr) . fst) $ stats receipt
-  where
-    foundAttribute :: Maybe (String,Int) -> Int
-    foundAttribute (Just (_,x)) = x
-    foundAttribute Nothing = error "Receipt with wrong attributes"
+findReceiptAttribute :: Int -> RecipeResult -> Int
+findReceiptAttribute index receipt = snd $ (V.!) (stats receipt) index
 
 
 findIngridientAttribute :: String -> Ingredient -> Int
