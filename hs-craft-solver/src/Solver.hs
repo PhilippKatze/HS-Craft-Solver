@@ -95,8 +95,11 @@ createReceipe mindurability attr ingr
                     V.foldl (\li va -> (+ li) $ scaledValue va $ snd $ snd ((V.!) (identifications $ (V.! va) ingr) att)) 0 $ V.generate 6 id))) 
                 dura
     where
+        dura :: Int
         dura = V.foldl (\li va -> durability va + li) 0 ingr --sum over durability of ingr
+        scaledValue :: Int -> Int -> Int
         scaledValue pos i = (`div` 100) (((effList V.! pos) + 100)*i)
+        effList :: V.Vector Int
         effList = effectiveList ingr
 
 
@@ -116,25 +119,14 @@ testForSkyline attributes currentSkyline progress (Just receipt) = do
     let noncompareable = incompareable attributes receipt filteredskylinePoints
     let newSkyline = if noncompareable && not gotDominated then receipt:filteredskylinePoints else filteredskylinePoints -- && notElem receipt filteredskylinePoints
 
-    --when (V.fromList ["Decaying Heart", "Elephelk Trunk", "Elephelk Trunk", "Ancient Currency", "Ancient Currency", "Ancient Currency"] == itemnames receipt) (print receipt) 
-    --when noncompareable (putStrLn "not comparable")
-    --when noncompareable (print receipt) 
-    --when noncompareable (print currentSkyline) 
-    --when noncompareable (print newSkyline)
     when (mod (fst progress) 1000000 == 0) (print $ "Progress " ++ show ( 100 * (/) (fromIntegral $ fst progress) (fromIntegral $ snd progress)))
-    --when (noncompareable && not gotDominated) (print receipt) 
-    --when (noncompareable && not gotDominated) (print $ length newSkyline) 
 
-    --unless gotDominated (putStrLn "not gotDominated")
-    --unless gotDominated (print receipt) 
-    --unless gotDominated (print currentSkyline)
-    --unless gotDominated (print newSkyline)
     _ <- evaluate (force newSkyline)
     return newSkyline
 
 dominating :: V.Vector String -> RecipeResult -> RecipeResult -> Bool
-dominating attributes first dominat = (all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) (V.generate (length attributes) id) )-- && finalDurability dominat >= finalDurability first)
-                                       -- && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) (V.generate (length attributes) id) )-- || finalDurability dominat > finalDurability first)
+dominating attributes first dominat = all (\att -> findReceiptAttribute att dominat >= findReceiptAttribute att first) (V.generate (length attributes) id) -- && finalDurability dominat >= finalDurability first)
+                                        -- && (any (\att -> findReceiptAttribute att dominat > findReceiptAttribute att first) (V.generate (length attributes) id) )-- || finalDurability dominat > finalDurability first)
 
 incompareable :: V.Vector String -> RecipeResult -> [RecipeResult] -> Bool
 incompareable _ _ [] = True
@@ -149,5 +141,6 @@ findIngridientAttribute :: String -> Ingredient -> Int
 findIngridientAttribute attr ingri = foundAttribute $ find ((== attr) . fst) $ identifications ingri
   where
     foundAttribute :: Maybe (String,(Int,Int)) -> Int
-    foundAttribute (Just (_, (_,x)))= x
-    foundAttribute Nothing = 0
+    foundAttribute = maybe 0 (snd . snd)
+    --foundAttribute (Just (_, (_,x)))= x
+    --foundAttribute Nothing = 0
